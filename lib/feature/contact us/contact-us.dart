@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:podcast/core/constants/fonts.dart';
+import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
 // import 'package:url_launcher/url_launcher.dart';
 
@@ -56,7 +57,6 @@ class ContactUsScren extends StatelessWidget {
               child: Text(
                 'فضای مجازی ما',
                 style: TextStyle(
-                  color: Colors.black,
                   fontSize: 20.sp,
                   fontFamily: Fonts.VazirMedium.fontFamily,
                 ),
@@ -69,9 +69,8 @@ class ContactUsScren extends StatelessWidget {
             child: Column(
               spacing: 10.w,
               children: [
-                InkWell(onTap: () {
-                  
-                },
+                InkWell(
+                  onTap: () {},
                   child: Row(
                     children: [
                       Container(
@@ -89,7 +88,9 @@ class ContactUsScren extends StatelessWidget {
                           "assets/instagram.svg",
                           width: 19.w,
                           height: 19.w,
-                          color: Color(0xff231F20),
+                          color: Theme.of(
+                            context,
+                          ).extension<CustomColors>()!.title,
                         ),
                       ),
                       SizedBox(width: 10),
@@ -97,7 +98,9 @@ class ContactUsScren extends StatelessWidget {
                         "اینستاگرام",
                         style: TextStyle(
                           fontSize: 14.sp,
-                          color: Color(0xff282828),
+                          color: Theme.of(
+                            context,
+                          ).extension<CustomColors>()!.title,
                           fontFamily: Fonts.VazirMedium.fontFamily,
                         ),
                       ),
@@ -121,7 +124,9 @@ class ContactUsScren extends StatelessWidget {
                         "assets/eeta.svg",
                         width: 19.w,
                         height: 19.w,
-                        color: Color(0xff231F20),
+                        color: Theme.of(
+                          context,
+                        ).extension<CustomColors>()!.title,
                       ),
                     ),
                     SizedBox(width: 10),
@@ -129,7 +134,9 @@ class ContactUsScren extends StatelessWidget {
                       "ایتا",
                       style: TextStyle(
                         fontSize: 14.sp,
-                        color: Color(0xff282828),
+                        color: Theme.of(
+                          context,
+                        ).extension<CustomColors>()!.title,
                         fontFamily: Fonts.VazirMedium.fontFamily,
                       ),
                     ),
@@ -152,7 +159,9 @@ class ContactUsScren extends StatelessWidget {
                         "assets/telegram.svg",
                         width: 15.w,
                         height: 15.w,
-                        color: Color(0xff231F20),
+                        color: Theme.of(
+                          context,
+                        ).extension<CustomColors>()!.title,
                       ),
                     ),
                     SizedBox(width: 10),
@@ -160,7 +169,9 @@ class ContactUsScren extends StatelessWidget {
                       "تلگرام",
                       style: TextStyle(
                         fontSize: 14.sp,
-                        color: Color(0xff282828),
+                        color: Theme.of(
+                          context,
+                        ).extension<CustomColors>()!.title,
                         fontFamily: Fonts.VazirMedium.fontFamily,
                       ),
                     ),

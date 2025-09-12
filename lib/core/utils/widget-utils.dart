@@ -880,11 +880,7 @@ class UserCard extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(
-                    Icons.change_circle_outlined,
-                    size: 20.w,
-                    color: Colors.black,
-                  ),
+                  icon: Icon(Icons.change_circle_outlined, size: 20.w),
                 ),
                 IconButton(
                   onPressed: () {},
