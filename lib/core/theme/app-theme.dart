@@ -25,6 +25,7 @@ class AppThemes {
         price: Color(0xff212121),
         priceoff: Color(0xff646464),
         desc: Color(0xffC7C7C7),
+        blueCard: Color(0xff0F172A),
       ),
     ],
   );
@@ -52,13 +53,23 @@ class AppThemes {
         price: Color(0xffD0D0D0),
         priceoff: Color(0xff9E9E9E),
         desc: Color(0xffA6A6A6),
+        blueCard: Color(0xff224AA9),
       ),
     ],
   );
 }
 
+//  Theme.of(context).extension<CustomColors>()!.colorText,
+
+//white
+Color blueCardAboutWhite = Color(0xff0F172A);
+
+//dark
+Color blueCardAboutBlack = Color(0xff224AA9);
+
 class CustomColors extends ThemeExtension<CustomColors> {
   final Color? navibox;
+  final Color? blueCard;
   final Color? iconnavi;
   final Color? colorText;
   final Color? card;
@@ -69,10 +80,10 @@ class CustomColors extends ThemeExtension<CustomColors> {
   final Color? price;
   final Color? priceoff;
 
-  // 🔹 کانستراکتور با پارامترهای نامدار برای همه رنگ‌ها
   const CustomColors({
     this.navibox,
     this.iconnavi,
+    this.blueCard,
     this.colorText,
     this.card,
     this.title,
@@ -83,11 +94,11 @@ class CustomColors extends ThemeExtension<CustomColors> {
     this.priceoff,
   });
 
-  // 🔹 copyWith
   @override
   CustomColors copyWith({
     Color? navibox,
     Color? iconnavi,
+    Color? blueCard,
     Color? colorText,
     Color? card,
     Color? title,
@@ -98,6 +109,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     Color? priceoff,
   }) {
     return CustomColors(
+      blueCard: blueCard ?? this.blueCard,
       navibox: navibox ?? this.navibox,
       iconnavi: iconnavi ?? this.iconnavi,
       colorText: colorText ?? this.colorText,
@@ -111,12 +123,12 @@ class CustomColors extends ThemeExtension<CustomColors> {
     );
   }
 
-  // 🔹 lerp
   @override
   CustomColors lerp(ThemeExtension<CustomColors>? other, double t) {
     if (other is! CustomColors) return this;
 
     return CustomColors(
+      blueCard: Color.lerp(blueCard, other.blueCard, t),
       navibox: Color.lerp(navibox, other.navibox, t),
       iconnavi: Color.lerp(iconnavi, other.iconnavi, t),
       colorText: Color.lerp(colorText, other.colorText, t),

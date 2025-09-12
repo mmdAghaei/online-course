@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:podcast/core/constants/fonts.dart';
+import 'package:podcast/core/utils/animation.dart';
+import 'package:podcast/core/utils/widget-utils.dart';
 import 'package:podcast/feature/auth/register-controller.dart';
 import 'package:podcast/feature/my%20course/my-course-controller.dart';
 
@@ -18,7 +20,7 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
   final MyCourseController myCourseController = Get.put(MyCourseController());
   Widget _buildPillToggle() {
     return Obx(() {
-      final isLogin = myCourseController.isLogin.value;
+      final isBuy = myCourseController.isBuy.value;
       return Container(
         width: 312.w,
         height: 44.w,
@@ -35,16 +37,15 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                 child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color:
-                        isLogin
-                            ? Theme.of(context).primaryColor
-                            : Colors.transparent,
+                    color: isBuy
+                        ? Theme.of(context).primaryColor
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Text(
                     'خریداری شده',
                     style: TextStyle(
-                      color: isLogin ? Colors.white : const Color(0xFF0F172A),
+                      color: isBuy ? Colors.white : const Color(0xFF0F172A),
                       fontFamily: Fonts.VazirBold.fontFamily,
                       fontSize: 14.sp,
                     ),
@@ -58,16 +59,15 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                 child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color:
-                        !isLogin
-                            ? Theme.of(context).primaryColor
-                            : Colors.transparent,
+                    color: !isBuy
+                        ? Theme.of(context).primaryColor
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Text(
                     "ذخیره شده ها",
                     style: TextStyle(
-                      color: !isLogin ? Colors.white : const Color(0xFF0F172A),
+                      color: !isBuy ? Colors.white : const Color(0xFF0F172A),
                       fontFamily: Fonts.VazirBold.fontFamily,
                       fontSize: 14.sp,
                     ),
@@ -84,7 +84,64 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(child: Column(children: [_buildPillToggle()])),
+      body: Center(
+        child: Column(
+          children: [
+            _buildPillToggle(),
+            Obx(() {
+              if (myCourseController.isBuy.value == true) {
+                return StaggeredList(
+                  children: myCourseController.buyCourses.map((course) {
+                    return InkWell(
+                      onTap: () {
+                        // if (int.parse(course.price.replaceAll(",", "")) >
+                        //     0) {
+                        //   Get.to(
+                        //     BuyScreen(coursesModel: course),
+                        //     transition: Transition.downToUp,
+                        //     arguments: course,
+                        //   );
+                        // } else {
+                        // Get.to(
+                        //   CourseAboutScreen(coursesModel: course),
+                        //   transition: Transition.downToUp,
+                        //   arguments: course,
+                        // );
+                        // }
+                      },
+                      child: CardCourse(coursesModel: course),
+                    );
+                  }).toList(),
+                );
+              } else {
+                return StaggeredList(
+                  children: myCourseController.saveCourses.map((course) {
+                    return InkWell(
+                      onTap: () {
+                        // if (int.parse(course.price.replaceAll(",", "")) >
+                        //     0) {
+                        //   Get.to(
+                        //     BuyScreen(coursesModel: course),
+                        //     transition: Transition.downToUp,
+                        //     arguments: course,
+                        //   );
+                        // } else {
+                        // Get.to(
+                        //   CourseAboutScreen(coursesModel: course),
+                        //   transition: Transition.downToUp,
+                        //   arguments: course,
+                        // );
+                        // }
+                      },
+                      child: CardCourse(coursesModel: course),
+                    );
+                  }).toList(),
+                );
+              }
+            }),
+          ],
+        ),
+      ),
     );
   }
 }

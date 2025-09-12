@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
+import 'package:podcast/data/models/courses-model.dart';
 
 class MyCourseController extends GetxController {
-  final isLogin = true.obs;
+  final isBuy = true.obs;
 
-  void setLogin() => isLogin.value = true;
-  void setRegister() => isLogin.value = false;
-  void toggle() => isLogin.value = !isLogin.value;
+  RxList<CoursesModel> buyCourses = <CoursesModel>[].obs;
+  RxList<CoursesModel> saveCourses = <CoursesModel>[].obs;
+
+  void setLogin() => isBuy.value = true;
+  void setRegister() => isBuy.value = false;
+  void toggle() => isBuy.value = !isBuy.value;
 }

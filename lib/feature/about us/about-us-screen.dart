@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/utils.dart';
 import 'package:podcast/core/constants/fonts.dart';
+import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/core/utils/animation.dart';
 
 class AboutUsScreen extends StatelessWidget {
@@ -100,7 +103,9 @@ class AboutUsScreen extends StatelessWidget {
                         child: Text(
                           'مسیر حرفه‌ای',
                           style: TextStyle(
-                            color: Color(0xFF0F172A),
+                            color: Theme.of(
+                              context,
+                            ).extension<CustomColors>()!.blueCard,
                             fontSize: 20.sp,
                             fontFamily: Fonts.ExtraBold.fontFamily,
                           ),
@@ -114,8 +119,10 @@ class AboutUsScreen extends StatelessWidget {
                         height: 199.w,
                         alignment: Alignment.center,
                         clipBehavior: Clip.hardEdge,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFF0F172A),
+                        decoration: BoxDecoration(
+                          color: Theme.of(
+                            context,
+                          ).extension<CustomColors>()!.blueCard,
                           borderRadius: BorderRadius.horizontal(
                             left: Radius.circular(500),
                           ),
@@ -137,8 +144,12 @@ class AboutUsScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                  width: 295.w,
+                  width: double.infinity,
                   height: 295.w,
+                  padding: EdgeInsets.all(Get.isDarkMode ? 10 : 0),
+                  decoration: BoxDecoration(
+                    color: Get.isDarkMode ? Colors.white : null,
+                  ),
                   child: SvgPicture.asset("assets/Asset_1_cleaned.svg"),
                 ),
               ),
@@ -153,7 +164,6 @@ class AboutUsScreen extends StatelessWidget {
                       child: Text(
                         'یادگیری و رشد فردی',
                         style: TextStyle(
-                          color: Colors.black,
                           fontSize: 20.sp,
                           fontFamily: Fonts.ExtraBold.fontFamily,
                         ),
@@ -169,7 +179,6 @@ class AboutUsScreen extends StatelessWidget {
                           'در بیشتر دوره‌های موفقیت، رشد فردی و سبک زندگی\nاساتید بزرگ ایران شرکت کرده‌ام و همیشه سعی \nرده‌ام خودم را به‌روز نگه دارم. مسیر یادگیری من فقط به روان‌شناسی ختم\nنمی‌شود… سال‌ها در حوزه‌ی فلسفه و عرفان و ادیان\nمطالعه داشته‌ام.',
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                            color: Colors.black,
                             fontSize: 14.sp,
                             fontFamily: Fonts.VazirMedium.fontFamily,
                           ),
