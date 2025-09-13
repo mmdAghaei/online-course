@@ -11,6 +11,7 @@ class CoursesModel {
   final String? sectionCount;
   final String? seen;
   final String? disCount;
+  final String? save;
   final List<CourseSectionModel>? sections;
 
   CoursesModel({
@@ -25,6 +26,7 @@ class CoursesModel {
     this.seen,
     this.disCount,
     this.sections,
+    this.save,
   });
 
   factory CoursesModel.fromJson(Map<String, dynamic> json) {
@@ -38,6 +40,7 @@ class CoursesModel {
     }
 
     return CoursesModel(
+      save: json["save"].toString(),
       id: json['id'].toString(),
       disCount: json['discount']?.toString(),
       title: json['title'] ?? "",

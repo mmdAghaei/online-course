@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/feature/home/home-screen.dart';
+import 'package:podcast/main.dart';
 import 'package:podcast/routes/routes_controller.dart';
 
 class Routes extends StatelessWidget {
@@ -47,8 +48,11 @@ class Routes extends StatelessWidget {
                       isActive: routesController.currentIndex.value == 2,
                       onTap: () => routesController.changePage(2),
                     ),
+
                     NavigationButton(
-                      image: "assets/Vector-2.png",
+                      image: box.read("userData")["user_type"] == "admin"
+                          ? "assets/admin.png"
+                          : "assets/Vector-2.png",
                       isActive: routesController.currentIndex.value == 1,
                       onTap: () => routesController.changePage(1),
                     ),
@@ -87,9 +91,10 @@ class NavigationButton extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
-            color: (Theme.of(context).extension<CustomColors>()!.iconnavi ??
-                    const Color.fromARGB(255, 204, 204, 204))
-                .withOpacity(isActive ? 0.4 : 0),
+            color:
+                (Theme.of(context).extension<CustomColors>()!.iconnavi ??
+                        const Color.fromARGB(255, 204, 204, 204))
+                    .withOpacity(isActive ? 0.4 : 0),
 
             width: isActive ? 3 : 0,
           ),

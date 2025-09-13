@@ -111,7 +111,7 @@ class HomeAdminScreen extends StatelessWidget {
               } else {
                 return StaggeredList(
                   children: homeController.userList.map((index) {
-                    return UserCard(userModel :index);
+                    return UserCard(userModel: index);
                   }).toList(),
                 );
               }

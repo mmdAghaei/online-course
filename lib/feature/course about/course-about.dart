@@ -5,6 +5,7 @@ import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
+import 'package:podcast/data/api/course-api-controller.dart';
 import 'package:podcast/data/api/home-api-controller.dart';
 import 'package:podcast/data/models/course-section-model.dart';
 import 'package:podcast/data/models/courses-model.dart';
@@ -22,6 +23,10 @@ class CourseAboutScreen extends StatelessWidget {
     late List<Comment> comments;
     final CommentsController ctrl = Get.put(CommentsController());
     final HomeApiController homeApiController = Get.find();
+    final CourseApiController courseApiController = Get.put(
+      CourseApiController(),
+    );
+    courseApiController.saveStatus(coursesModel.save == "true" ? true : false);
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -74,10 +79,27 @@ class CourseAboutScreen extends StatelessWidget {
                       onPressed: () => Get.back(),
                     ),
                   ),
+
+                  CircleAvatar(
+                    backgroundColor: Colors.black.withOpacity(0.5),
+                    child: Obx(
+                      () => IconButton(
+                        icon: Icon(
+                          courseApiController.statusSave.value
+                              ? Icons.bookmark
+                              : Icons.bookmark_border_outlined,
+                          color: Colors.white,
+                        ),
+                        onPressed: () =>
+                            courseApiController.SaveCourses(coursesModel.id),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
+
           DraggableScrollableSheet(
             initialChildSize: 0.7,
             minChildSize: 0.7,

@@ -60,6 +60,9 @@ class UserAuthController extends GetxController {
           arguments: phoneController.text,
         );
         return true;
+      } else if (response.statusCode == 400) {
+        Get.snackbar("خطا", response.body["message"]);
+        return false;
       } else {
         Get.snackbar(
           "خطا",
@@ -81,11 +84,22 @@ class UserAuthController extends GetxController {
         username: phoneController.text,
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         Get.snackbar("موفق", response.body["message"]);
+        // response.body["message"]
         Get.to(Routes());
-
+        print(response.body);
+        box.write("userData", response.body);
         return true;
+      } else if (response.statusCode == 401) {
+        Get.snackbar("خطا", "کد وارد شده نامعتبر است");
+        return false;
+      } else if (response.statusCode == 410) {
+        Get.snackbar("خطا", "کد وارد شده منقضی شده است");
+        return false;
+      } else if (response.statusCode == 409) {
+        Get.snackbar("خطا", "شماره موبایل تکراری است");
+        return false;
       } else {
         Get.snackbar(
           "خطا",

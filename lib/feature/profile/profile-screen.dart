@@ -111,6 +111,21 @@ class ProfileScreen extends StatelessWidget {
                 textInputFormatters: [],
               ),
             ),
+            Container(
+              width: 275.w,
+              height: 44.w,
+              child: TextFieldWidget(
+                // textEditingController: TextEditingController(
+                //   text: box.read("userData")["last_name"],
+                // ),
+                textEditingController: profileApiController.role,
+                hintText: "نقش",
+                icon: const Icon(Icons.person, size: 24),
+                keyboardType: TextInputType.name,
+                obscureText: false,
+                textInputFormatters: [],
+              ),
+            ),
             // Container(
             //   width: 275.w,
             //   height: 44.w,

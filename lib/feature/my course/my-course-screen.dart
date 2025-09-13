@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
+import 'package:podcast/data/api/course-api-controller.dart';
 import 'package:podcast/feature/auth/register-controller.dart';
 import 'package:podcast/feature/my%20course/my-course-controller.dart';
 
@@ -18,6 +19,9 @@ class MyCourseScreen extends StatefulWidget {
 class _MyCourseScreenState extends State<MyCourseScreen> {
   @override
   final MyCourseController myCourseController = Get.put(MyCourseController());
+  final CourseApiController courseApiController = Get.put(
+    CourseApiController(),
+  );
   Widget _buildPillToggle() {
     return Obx(() {
       final isBuy = myCourseController.isBuy.value;
@@ -91,7 +95,7 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
             Obx(() {
               if (myCourseController.isBuy.value == true) {
                 return StaggeredList(
-                  children: myCourseController.buyCourses.map((course) {
+                  children: courseApiController.listBuyCourse.map((course) {
                     return InkWell(
                       onTap: () {
                         // if (int.parse(course.price.replaceAll(",", "")) >
@@ -115,7 +119,7 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                 );
               } else {
                 return StaggeredList(
-                  children: myCourseController.saveCourses.map((course) {
+                  children: courseApiController.listSaveCourse.map((course) {
                     return InkWell(
                       onTap: () {
                         // if (int.parse(course.price.replaceAll(",", "")) >
