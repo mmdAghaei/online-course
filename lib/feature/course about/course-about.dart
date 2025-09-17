@@ -278,14 +278,10 @@ class CourseAboutScreen extends StatelessWidget {
 
                           Positioned(
                             left: 18,
-
                             bottom: 14,
-
                             child: SizedBox(
                               width: 80.w,
-
                               height: 30.w,
-
                               child: ElevatedButton(
                                 onPressed: () {
                                   commentApiController.CreateComment(
@@ -344,7 +340,10 @@ class CourseAboutScreen extends StatelessWidget {
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: ctrl.comments.length,
                         itemBuilder: (context, idx) {
-                          return CommentCard(comment: ctrl.comments[idx]);
+                          return CommentCard(
+                            comment: ctrl.comments[idx],
+                            Courseid: coursesModel.id,
+                          );
                         },
                       );
                     }),

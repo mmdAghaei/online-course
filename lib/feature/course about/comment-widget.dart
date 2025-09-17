@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:podcast/data/api/comment-api-controller.dart';
 import 'package:podcast/feature/course%20about/comment-controller.dart';
 import 'package:podcast/main.dart';
 
@@ -112,10 +113,13 @@ class Comment {
 
 class CommentCard extends StatelessWidget {
   final Comment comment;
-  const CommentCard({Key? key, required this.comment}) : super(key: key);
+  final String Courseid;
+  const CommentCard({Key? key, required this.comment, required this.Courseid})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final CommentApiController commentApiController = Get.find();
     final CommentsController ctrl = Get.find();
     return Card(
       elevation: 2,
@@ -169,7 +173,12 @@ class CommentCard extends StatelessWidget {
                 TextButton.icon(
                   icon: const Icon(Icons.reply),
                   label: const Text('پاسخ'),
-                  onPressed: () => _openReplySheet(context, comment),
+                  onPressed: () => _openReplySheet(
+                    context,
+                    comment,
+                    commentApiController,
+                    Courseid,
+                  ),
                 ),
               ],
             ),
@@ -241,8 +250,12 @@ class CommentCard extends StatelessWidget {
     );
   }
 
-  void _openReplySheet(BuildContext context, Comment comment) {
-    final CommentsController ctrl = Get.find();
+  void _openReplySheet(
+    BuildContext context,
+    Comment comment,
+    CommentApiController c,
+    String courseid,
+  ) {
     final TextEditingController textController = TextEditingController();
     String selectedReplyTo = comment.author;
 
@@ -297,6 +310,11 @@ class CommentCard extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         final text = textController.text.trim();
+                        // print(Courseid);
+                        // print(text);
+                        // print(comment.id);
+                        c.CreateReply(Courseid, text, comment.id);
+
                         if (text.isEmpty) return;
                         final reply = Reply(
                           author:

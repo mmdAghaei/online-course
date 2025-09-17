@@ -10,7 +10,37 @@ class CommentApiController extends GetxController {
 
       if (response.statusCode == 200) {
         Get.snackbar("پیام", response.body["message"]);
-        
+
+        return true;
+      } else {
+        Get.snackbar(
+          "خطا",
+          "اتصال اینترنت را چک کنید",
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> CreateReply(
+    String CourseId,
+    String Comment,
+    String Commentid,
+  ) async {
+    try {
+      final response = await _commentApi.CreateReply(
+        CourseId,
+        Comment,
+        Commentid,
+      );
+
+      if (response.statusCode == 200) {
+        Get.snackbar("پیام", response.body["message"]);
+
         return true;
       } else {
         Get.snackbar(

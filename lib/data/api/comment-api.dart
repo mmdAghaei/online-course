@@ -10,4 +10,17 @@ class CommentApi extends GetConnect {
       headers: {"Authorization": "Bearer " + box.read("userData")["token"]},
     );
   }
+
+  Future<Response> CreateReply(
+    String CourseId,
+    String Comment,
+    String Commentid,
+  ) async {
+    return post(
+      "$ip/create_replay",
+      {"course_id": CourseId, "comment_id": Commentid, "content": Comment},
+      contentType: "application/x-www-form-urlencoded",
+      headers: {"Authorization": "Bearer " + box.read("userData")["token"]},
+    );
+  }
 }
