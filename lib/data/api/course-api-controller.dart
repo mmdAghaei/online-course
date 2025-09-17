@@ -90,9 +90,7 @@ class CourseApiController extends GetxController {
 
   Future<bool> GetData() async {
     try {
-      final response = await _coursesApi.GetAllCourse(
-        box.read("userData")["phone"],
-      );
+      final response = await _coursesApi.GetAllCourse();
 
       if (response.statusCode == 200) {
         final courseJson = response.body['all_course'] as List;

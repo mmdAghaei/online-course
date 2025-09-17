@@ -66,13 +66,14 @@ class VarificationScreen extends StatelessWidget {
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
                       maxLength: 1,
+                      style: TextStyle(color: Colors.white),
                       decoration: const InputDecoration(
                         counterText: '',
                         border: InputBorder.none,
                       ),
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      onChanged:
-                          (val) => varificationController.onChanged(val, index),
+                      onChanged: (val) =>
+                          varificationController.onChanged(val, index),
                     ),
                   );
                 }),
@@ -112,16 +113,20 @@ class VarificationScreen extends StatelessWidget {
             }),
           ),
           Positioned(
-            bottom: 0,
-            child: ButtonApp(
-              title: "d",
-              onTap: () {
-                userAuthController.verifyEmail(
-                  "${varificationController.textControllers[0].text}${varificationController.textControllers[1].text}${varificationController.textControllers[2].text}${varificationController.textControllers[3].text}${varificationController.textControllers[4].text}",
-                );
-              },
-              backgroundColor: Colors.black,
-              foregroundColor: Colors.white,
+            bottom: 20,
+            child: SizedBox(
+              width: 326.w,
+              height: 55.w,
+              child: ButtonApp(
+                title: "تایید کد",
+                onTap: () {
+                  userAuthController.verifyEmail(
+                    "${varificationController.textControllers[0].text}${varificationController.textControllers[1].text}${varificationController.textControllers[2].text}${varificationController.textControllers[3].text}${varificationController.textControllers[4].text}",
+                  );
+                },
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+              ),
             ),
           ),
         ],

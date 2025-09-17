@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:podcast/feature/course%20about/comment-controller.dart';
+import 'package:podcast/main.dart';
 
 class Reply {
   final String author;
@@ -14,6 +15,38 @@ class Reply {
     required this.message,
     DateTime? time,
   }) : time = time ?? DateTime.now();
+
+  factory Reply.fromJson(Map<String, dynamic> json, {String? defaultReplyTo}) {
+    String author = '';
+    if (json['user'] is String) {
+      author = json['user'];
+    } else if (json['user'] is Map) {
+      author = json['user']['name']?.toString() ?? '';
+    } else if (json['author'] != null) {
+      author = json['author'].toString();
+    }
+
+    final message = (json['content'] ?? json['message'] ?? '').toString();
+
+    DateTime parsedTime;
+    final created = (json['created_at'] ?? json['time'] ?? '').toString();
+    try {
+      parsedTime = DateTime.parse(created);
+    } catch (_) {
+      parsedTime = DateTime.now();
+    }
+
+    final replyTo =
+        (json['reply_to'] ?? json['replyTo'] ?? defaultReplyTo ?? '')
+            .toString();
+
+    return Reply(
+      author: author,
+      replyTo: replyTo,
+      message: message,
+      time: parsedTime,
+    );
+  }
 }
 
 class Comment {
@@ -33,7 +66,50 @@ class Comment {
     bool expanded = false,
   }) : replies = (replies ?? <Reply>[]).obs,
        expanded = expanded.obs;
+
+  factory Comment.fromJson(Map<String, dynamic> json) {
+    final id = (json['id'] ?? json['comment_id'] ?? '').toString();
+    String author = '';
+    if (json['user'] is String)
+      author = json['user'];
+    else if (json['user'] is Map)
+      author = json['user']['name']?.toString() ?? '';
+    else if (json['author'] != null)
+      author = json['author'].toString();
+
+    final timeString = (json['created_at'] ?? json['time'] ?? '').toString();
+    final message = (json['content'] ?? json['message'] ?? '').toString();
+
+    final List<dynamic>? rawReplies =
+        json['replay_list'] ?? json['reply_list'] ?? json['replies'];
+
+    final parsedReplies = <Reply>[];
+    if (rawReplies != null) {
+      for (var r in rawReplies) {
+        if (r is Map<String, dynamic>) {
+          parsedReplies.add(Reply.fromJson(r, defaultReplyTo: author));
+        } else if (r is Map) {
+          parsedReplies.add(
+            Reply.fromJson(
+              Map<String, dynamic>.from(r),
+              defaultReplyTo: author,
+            ),
+          );
+        }
+      }
+    }
+
+    return Comment(
+      id: id,
+      author: author,
+      timeString: timeString,
+      message: message,
+      replies: parsedReplies,
+      expanded: false,
+    );
+  }
 }
+
 class CommentCard extends StatelessWidget {
   final Comment comment;
   const CommentCard({Key? key, required this.comment}) : super(key: key);
@@ -75,7 +151,6 @@ class CommentCard extends StatelessWidget {
 
             const SizedBox(height: 8),
 
-            // دکمه‌های زیر هر کامنت
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -91,7 +166,6 @@ class CommentCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                // باز کردن bottomSheet برای ریپلای (مثال دیگری از استفادهٔ GetX)
                 TextButton.icon(
                   icon: const Icon(Icons.reply),
                   label: const Text('پاسخ'),
@@ -100,7 +174,6 @@ class CommentCard extends StatelessWidget {
               ],
             ),
 
-            // نمایش پاسخ‌ها
             Obx(() {
               if (!comment.expanded.value) return const SizedBox.shrink();
               return Column(
@@ -171,7 +244,6 @@ class CommentCard extends StatelessWidget {
   void _openReplySheet(BuildContext context, Comment comment) {
     final CommentsController ctrl = Get.find();
     final TextEditingController textController = TextEditingController();
-    String selectedAuthor = ctrl.allUsers.first;
     String selectedReplyTo = comment.author;
 
     Get.bottomSheet(
@@ -189,15 +261,8 @@ class CommentCard extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: DropdownButtonFormField<String>(
-                      value: selectedAuthor,
-                      decoration: const InputDecoration(labelText: 'فرستنده'),
-                      items: ctrl.allUsers
-                          .map(
-                            (u) => DropdownMenuItem(value: u, child: Text(u)),
-                          )
-                          .toList(),
-                      onChanged: (v) => selectedAuthor = v ?? selectedAuthor,
+                    child: Text(
+                      "${box.read("userData")["first_name"]} ${box.read("userData")["last_name"]}",
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -234,7 +299,8 @@ class CommentCard extends StatelessWidget {
                         final text = textController.text.trim();
                         if (text.isEmpty) return;
                         final reply = Reply(
-                          author: selectedAuthor,
+                          author:
+                              "${box.read("userData")["first_name"]} ${box.read("userData")["last_name"]}",
                           replyTo: selectedReplyTo,
                           message: text,
                         );

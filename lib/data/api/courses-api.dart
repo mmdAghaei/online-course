@@ -2,29 +2,38 @@ import 'package:get/get_connect/connect.dart';
 import 'package:podcast/main.dart';
 
 class CoursesApi extends GetConnect {
-  Future<Response> GetAllCourse(String phone) async {
-    return post("$ip/all_courses", {
-      "phone": phone,
-    }, contentType: "application/x-www-form-urlencoded");
+  Future<Response> GetAllCourse() async {
+    return post(
+      "$ip/all_courses",
+      {},
+      headers: {"Authorization": "Bearer " + box.read("userData")["token"]},
+    );
   }
 
-  Future<Response> GetDetailsCourse(String phone, String course_id) async {
-    return post("$ip/course_details", {
-      "phone": phone,
-      "course_id": course_id,
-    }, contentType: "application/x-www-form-urlencoded");
+  Future<Response> CourseDetails(String course_id) async {
+    return post(
+      "$ip/course_details",
+      {"course_id": course_id},
+      contentType: "application/x-www-form-urlencoded",
+      headers: {"Authorization": "Bearer " + box.read("userData")["token"]},
+    );
   }
 
   Future<Response> SaveCourse(String phone, String course_id) async {
-    return post("$ip/save_course", {
-      "phone": phone,
-      "course_id": course_id,
-    }, contentType: "application/x-www-form-urlencoded");
+    return post(
+      "$ip/save_course",
+      {"phone": phone, "course_id": course_id},
+      contentType: "application/x-www-form-urlencoded",
+      headers: {"Authorization": "Bearer " + box.read("userData")["token"]},
+    );
   }
 
   Future<Response> MyCourse(String phone) async {
-    return post("$ip/my_course", {
-      "phone": phone,
-    }, contentType: "application/x-www-form-urlencoded");
+    return post(
+      "$ip/my_course",
+      {"phone": phone},
+      contentType: "application/x-www-form-urlencoded",
+      headers: {"Authorization": "Bearer " + box.read("userData")["token"]},
+    );
   }
 }

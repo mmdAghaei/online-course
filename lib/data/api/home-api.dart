@@ -2,9 +2,11 @@ import 'package:get/get_connect/connect.dart';
 import 'package:podcast/main.dart';
 
 class HomeApi extends GetConnect {
-  Future<Response> GetCourseAndNews(String phone) async {
-    return post("$ip/home_screen", {
-      "phone": phone,
-    }, contentType: "application/x-www-form-urlencoded");
+  Future<Response> GetCourseAndNews() async {
+    return post(
+      "$ip/home_screen",
+      {},
+      headers: {"Authorization": "Bearer " + box.read("userData")["token"]},
+    );
   }
 }

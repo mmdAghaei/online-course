@@ -23,11 +23,11 @@ class UserAuthController extends GetxController {
         password: passwordController.text,
       );
       print(response.statusCode);
+      print(response.body);
 
       if (response.statusCode == 200) {
         Get.snackbar("موفق", "وارد شدید");
         box.write("userData", response.body);
-        print(box.read("userData"));
         Get.offAll(Routes());
         return true;
       } else {

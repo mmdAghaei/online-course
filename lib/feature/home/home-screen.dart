@@ -225,7 +225,9 @@ class HomeScreen extends StatelessWidget {
                         return InkWell(
                           onTap: () async {
                             CoursesModel coursesModel =
-                                await homeApiController.GetDetails(course.id);
+                                await homeApiController.CourseDetails(
+                                  course.id,
+                                );
                             Get.to(
                               CourseAboutScreen(coursesModel: coursesModel),
                               transition: Transition.downToUp,

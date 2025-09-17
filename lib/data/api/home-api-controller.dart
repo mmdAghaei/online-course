@@ -6,6 +6,7 @@ import 'package:podcast/data/api/home-api.dart';
 import 'package:podcast/data/models/course-section-model.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/data/models/news-model.dart';
+import 'package:podcast/feature/course%20about/comment-controller.dart';
 import 'package:podcast/feature/enter/enter-screen.dart';
 import 'package:podcast/main.dart';
 
@@ -22,24 +23,26 @@ class HomeApiController extends GetxController {
     GetData();
   }
 
-  Future<CoursesModel> GetDetails(String code) async {
+  Future<CoursesModel> CourseDetails(String code) async {
     try {
-      final response = await _courseApi.GetDetailsCourse(
-        box.read("userData")["phone"],
-        code,
-      );
+      final response = await _courseApi.CourseDetails(code);
 
       if (response.statusCode == 200) {
-        // final courseJson = response.body['course'] as List;
-        final courseJson = response.body;
-        final courseSecconJson = response.body["sections"] as List;
+        final courseJson = response.body as Map<String, dynamic>;
+        final courseSecconJson =
+            (response.body["sections"] as List?) ?? <dynamic>[];
+        final commentJson = (response.body["comments"] as List?) ?? <dynamic>[];
 
-        // courseJson.map((e) =>);
         CoursesModel c = CoursesModel.fromJson(courseJson);
         listCourseSesson.clear();
         listCourseSesson.addAll(
           courseSecconJson.map((e) => CourseSectionModel.fromJson(e)).toList(),
         );
+
+        final CommentsController commentsCtrl = Get.put(CommentsController());
+
+        commentsCtrl.setCommentsFromJson(commentJson);
+
         return c;
       } else {
         Get.snackbar(
@@ -58,17 +61,17 @@ class HomeApiController extends GetxController {
 
   Future<bool> GetData() async {
     try {
-      final response = await _homeApi.GetCourseAndNews(
-        box.read("userData")["phone"],
-      );
+      final response = await _homeApi.GetCourseAndNews();
+      print(response.body);
+      print("----------------");
       if (response.statusCode == 404) {
         Get.snackbar("", "کاربر یافت نشد لطفا دوباره وارد شوید");
         box.remove("userData");
         Get.to(EnterScreen());
         return false;
       } else if (response.statusCode == 200) {
-        final newsJson = response.body['news'] as List;
-        final courseJson = response.body['course'] as List;
+        final newsJson = response.body['announcements'] as List;
+        final courseJson = response.body['courses'] as List;
         final userType = response.body["user_type"];
         if (userType.toString() == "admin") {
           Map<String, dynamic> myMap = box.read('userData');
@@ -96,6 +99,7 @@ class HomeApiController extends GetxController {
           "اتصال اینترنت را چک کنید",
           snackPosition: SnackPosition.BOTTOM,
         );
+        print(response.body);
         return false;
       }
     } catch (e) {

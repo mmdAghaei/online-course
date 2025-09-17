@@ -60,7 +60,7 @@ class TextFieldWidget extends StatefulWidget {
   final TextInputType keyboardType;
   final List<TextInputFormatter> textInputFormatters;
   final TextEditingController textEditingController;
-
+  final bool? readOnly;
   const TextFieldWidget({
     super.key,
     required this.hintText,
@@ -69,6 +69,7 @@ class TextFieldWidget extends StatefulWidget {
     required this.keyboardType,
     required this.textInputFormatters,
     required this.textEditingController,
+    this.readOnly,
   });
 
   @override
@@ -100,6 +101,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       textAlign: TextAlign.right,
       textAlignVertical: TextAlignVertical.center,
       autocorrect: false,
+      readOnly: widget.readOnly ?? false,
       obscureText: _isPasswordField ? _obscureText : widget.obscureText,
       cursorHeight: 14,
       inputFormatters: widget.textInputFormatters,

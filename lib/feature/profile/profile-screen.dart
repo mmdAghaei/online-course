@@ -35,9 +35,10 @@ class ProfileScreen extends StatelessWidget {
               height: 74.w,
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 255, 183, 183),
+                color: Color.fromARGB(255, 119, 119, 119),
                 borderRadius: BorderRadius.circular(150),
               ),
+              child: Icon(Icons.person, size: 50.w, color: Colors.white),
             ),
             Text(
               box.read("userData")["first_name"] +
@@ -129,10 +130,6 @@ class ProfileScreen extends StatelessWidget {
               width: 275.w,
               height: 44.w,
               child: TextFieldWidget(
-                // textEditingController: TextEditingController(
-                //   text: box.read("userData")["first_name"],
-                // )
-                // ,
                 textEditingController: profileApiController.firstName,
                 hintText: "نام",
                 icon: const Icon(Icons.person, size: 24),
@@ -145,9 +142,6 @@ class ProfileScreen extends StatelessWidget {
               width: 275.w,
               height: 44.w,
               child: TextFieldWidget(
-                // textEditingController: TextEditingController(
-                //   text: box.read("userData")["last_name"],
-                // ),
                 textEditingController: profileApiController.lastName,
                 hintText: "نام خانوادگی",
                 icon: const Icon(Icons.person, size: 24),
@@ -160,24 +154,20 @@ class ProfileScreen extends StatelessWidget {
               width: 275.w,
               height: 44.w,
               child: TextFieldWidget(
-                // textEditingController: TextEditingController(
-                //   text: box.read("userData")["last_name"],
-                // ),
                 textEditingController: profileApiController.role,
                 hintText: "نقش",
                 icon: const Icon(Icons.person, size: 24),
                 keyboardType: TextInputType.name,
                 obscureText: false,
                 textInputFormatters: [],
+                readOnly: true,
               ),
             ),
             Container(
               width: 275.w,
               height: 44.w,
               child: TextFieldWidget(
-                // textEditingController: TextEditingController(
-                //   text: box.read("userData")["last_name"],
-                // ),
+                readOnly: true,
                 textEditingController: profileApiController.phone,
                 hintText: "شماره",
                 icon: const Icon(Icons.person, size: 24),
@@ -186,34 +176,6 @@ class ProfileScreen extends StatelessWidget {
                 textInputFormatters: [],
               ),
             ),
-            // Container(
-            //   width: 275.w,
-            //   height: 44.w,
-            //   child: TextFieldWidget(
-            //     textEditingController: TextEditingController(
-            //       text: box.read("userData")["phone"],
-            //     ),
-            //     hintText: "شماره تلفن",
-            //     icon: const Icon(Icons.call, size: 24),
-            //     keyboardType: TextInputType.number,
-            //     obscureText: false,
-            //     textInputFormatters: [
-            //       FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-            //     ],
-            //   ),
-            // ),
-            // Container(
-            //   width: 275.w,
-            //   height: 44.w,
-            //   child: TextFieldWidget(
-            //     textEditingController: TextEditingController(),
-            //     hintText: 'رمز عبور',
-            //     icon: const Icon(Icons.password, size: 24),
-            //     keyboardType: TextInputType.text,
-            //     obscureText: true,
-            //     textInputFormatters: [],
-            //   ),
-            // ),
           ],
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:podcast/core/theme/app-theme.dart';
+import 'package:podcast/data/api/comment-api.dart';
 import 'package:podcast/data/api/courses-api.dart';
 import 'package:podcast/data/api/home-api.dart';
 import 'package:podcast/data/api/news-api.dart';
@@ -13,7 +14,7 @@ import 'package:podcast/feature/enter/enter-screen.dart';
 import 'package:podcast/routes/routes.dart';
 
 final box = GetStorage();
-String ip = "http://192.168.1.28:8000";
+String ip = "http://5.10.248.48:9876";
 
 void main() async {
   await GetStorage.init();
@@ -22,7 +23,7 @@ void main() async {
   Get.put(UserAuthApi());
   Get.put(CoursesApi());
   Get.put(PanelAdminApi());
-
+  Get.put(CommentApi());
   Get.put(HomeApi());
   Get.put(ProfileApi());
   Get.put(NewsApi());

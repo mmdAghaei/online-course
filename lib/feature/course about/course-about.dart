@@ -5,12 +5,14 @@ import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
+import 'package:podcast/data/api/comment-api-controller.dart';
 import 'package:podcast/data/api/course-api-controller.dart';
 import 'package:podcast/data/api/home-api-controller.dart';
 import 'package:podcast/data/models/course-section-model.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/feature/course%20about/comment-controller.dart';
 import 'package:podcast/feature/course%20about/comment-widget.dart';
+import 'package:podcast/main.dart';
 
 class CourseAboutScreen extends StatelessWidget {
   final CoursesModel coursesModel;
@@ -23,6 +25,10 @@ class CourseAboutScreen extends StatelessWidget {
     final CourseApiController courseApiController = Get.put(
       CourseApiController(),
     );
+    final CommentApiController commentApiController = Get.put(
+      CommentApiController(),
+    );
+    TextEditingController comment = TextEditingController();
     courseApiController.saveStatus(coursesModel.save == "true" ? true : false);
 
     return Scaffold(
@@ -249,6 +255,7 @@ class CourseAboutScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 TextField(
+                                  controller: comment,
                                   textDirection: TextDirection.rtl,
                                   textAlign: TextAlign.right,
                                   minLines: 1,
@@ -281,12 +288,19 @@ class CourseAboutScreen extends StatelessWidget {
 
                               child: ElevatedButton(
                                 onPressed: () {
+                                  commentApiController.CreateComment(
+                                    coursesModel.id,
+                                    comment.text,
+                                  );
                                   ctrl.addComment(
                                     Comment(
                                       id: 'c${ctrl.comments.length + 1}',
-                                      author: 'کاربر جدید',
+                                      author:
+                                          box.read("userData")["first_name"] +
+                                          " " +
+                                          box.read("userData")["last_name"],
                                       timeString: 'الان',
-                                      message: 'یک کامنت تستی',
+                                      message: comment.text,
                                     ),
                                   );
                                 },
@@ -334,48 +348,6 @@ class CourseAboutScreen extends StatelessWidget {
                         },
                       );
                     }),
-                    // Positioned(
-                    //   top: 400,
-                    //   child: Obx(
-                    //     () => SizedBox(
-                    //       width: double.infinity,
-                    //       child:
-                    //     ),
-                    //   ),
-                    // ),
-                    // ListView.builder(
-                    //   padding: const EdgeInsets.all(12),
-                    //   itemCount: ctrl.comments.length,
-                    //   itemBuilder: (context, idx) {
-                    //     return CommentCard(comment: ctrl.comments[idx]);
-                    //   },
-                    // ),
-                    // // ChatCommentThread(
-                    // //   userName: "محمد",
-                    // //   userTime: "۲ روز پیش",
-                    // //   userMessage: "هفتاد درصد ما چیشد؟",
-                    // //   adminMessage: "هفتاد درصد؟فکرررر نکنم",
-                    // //   adminName: "ادمین",
-                    // //   adminTime: "۷۰ روز پیش",
-                    // // ),
-                    // // SizedBox(height: 40),
-                    // // ChatCommentThread(
-                    // //   userName: "محمد",
-                    // //   userTime: "۲ روز پیش",
-                    // //   userMessage: "هفتاد درصد ما چیشد؟",
-                    // //   adminMessage: "هفتاد درصد؟فکرررر نکنم",
-                    // //   adminName: "ادمین",
-                    // //   adminTime: "۷۰ روز پیش",
-                    // // ),
-                    // // SizedBox(height: 40),
-                    // // ChatCommentThread(
-                    // //   userName: "محمد",
-                    // //   userTime: "۲ روز پیش",
-                    // //   userMessage: "هفتاد درصد ما چیشد؟",
-                    // //   adminMessage: "هفتاد درصد؟فکرررر نکنم",
-                    // //   adminName: "ادمین",
-                    // //   adminTime: "۷۰ روز پیش",
-                    // // ),
                   ],
                 ),
               );
