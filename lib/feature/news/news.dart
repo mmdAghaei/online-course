@@ -8,6 +8,7 @@ import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
 import 'package:podcast/data/api/news-api-controller.dart';
+import 'package:podcast/feature/news%20about/news-about-screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class NewsScreen extends StatelessWidget {
@@ -62,7 +63,9 @@ class NewsScreen extends StatelessWidget {
                 return StaggeredList(
                   children: newsApiController.newsList.map((index) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(NewsAboutScreen(newsModel: index));
+                      },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         height: 100.w,

@@ -6,7 +6,10 @@ class NewsApi extends GetConnect {
     return post(
       "$ip/all_announcements",
       {},
-      contentType: "application/x-www-form-urlencoded",
+      headers: {
+        "token":
+            "eyJhbGciOiJub25lIn0.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTczNjI5MjEyNH0.",
+      },
     );
   }
 }

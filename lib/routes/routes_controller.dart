@@ -19,9 +19,7 @@ class RoutesController extends GetxController {
       case 0:
         return SettingScreen();
       case 1:
-        return box.read("userData")["user_type"] == "admin"
-            ? HomeAdminScreen()
-            : MyCourseScreen();
+        return MyCourseScreen();
       case 2:
         return HomeScreen();
       default:

@@ -9,11 +9,11 @@ class ProfileApi extends GetConnect {
     String first_name,
     String last_name,
   ) async {
-    return post(
-      "$ip/edit_profile",
-      {"phone": phone, "first_name": first_name, "last_name": last_name},
-      contentType: "application/x-www-form-urlencoded",
-    );
+    return post("$ip/edit_profile", {
+      "phone": phone,
+      "first_name": first_name,
+      "last_name": last_name,
+    }, contentType: "application/x-www-form-urlencoded");
   }
 }
 
@@ -26,6 +26,7 @@ class ProfileApiController extends GetxController {
     text: box.read("userData")["last_name"],
   );
   final role = TextEditingController(text: box.read("userData")["user_type"]);
+  final phone = TextEditingController(text: box.read("userData")["phone"]);
 
   Future<bool> EditProfile() async {
     try {

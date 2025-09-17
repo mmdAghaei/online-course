@@ -9,21 +9,14 @@ class CourseApiController extends GetxController {
   RxList<CoursesModel> listSaveCourse = <CoursesModel>[].obs;
   RxList<CoursesModel> listBuyCourse = <CoursesModel>[].obs;
 
-  RxList<CoursesModel> listCourse = <CoursesModel>[
-    CoursesModel(
-      id: '1',
-      title: 'آموزش مقدماتی فلاتر',
-      description: 'یادگیری مبانی فلاتر از صفر.',
-      buyStatus: 'رایگان',
-      price: '100,000',
-      finalPrice: '0',
-    ),
-  ].obs;
+  RxList<CoursesModel> listCourse = <CoursesModel>[].obs;
 
   @override
   void onInit() {
     super.onInit();
     GetData();
+
+    GetMyCourse();
   }
 
   void saveStatus(bool state) {
@@ -43,7 +36,12 @@ class CourseApiController extends GetxController {
         listBuyCourse.clear();
         listSaveCourse.clear();
         listBuyCourse.addAll(
-          courseBuyJson.map((e) => CoursesModel.fromJson(e)).toList(),
+          courseBuyJson.map((e) {
+            final Map<String, dynamic> courseMap = Map<String, dynamic>.from(e);
+
+            courseMap['buy_status'] = "";
+            return CoursesModel.fromJson(courseMap);
+          }).toList(),
         );
         listSaveCourse.addAll(
           courseSaveJson.map((e) => CoursesModel.fromJson(e)).toList(),

@@ -6,7 +6,10 @@ import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
 import 'package:podcast/data/api/course-api-controller.dart';
+import 'package:podcast/data/api/home-api-controller.dart';
+import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/feature/auth/register-controller.dart';
+import 'package:podcast/feature/course%20about/course-about.dart';
 import 'package:podcast/feature/my%20course/my-course-controller.dart';
 
 class MyCourseScreen extends StatefulWidget {
@@ -22,6 +25,8 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
   final CourseApiController courseApiController = Get.put(
     CourseApiController(),
   );
+  HomeApiController homeApiController = Get.find();
+
   Widget _buildPillToggle() {
     return Obx(() {
       final isBuy = myCourseController.isBuy.value;
@@ -89,61 +94,50 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Column(
-          children: [
-            _buildPillToggle(),
-            Obx(() {
-              if (myCourseController.isBuy.value == true) {
-                return StaggeredList(
-                  children: courseApiController.listBuyCourse.map((course) {
-                    return InkWell(
-                      onTap: () {
-                        // if (int.parse(course.price.replaceAll(",", "")) >
-                        //     0) {
-                        //   Get.to(
-                        //     BuyScreen(coursesModel: course),
-                        //     transition: Transition.downToUp,
-                        //     arguments: course,
-                        //   );
-                        // } else {
-                        // Get.to(
-                        //   CourseAboutScreen(coursesModel: course),
-                        //   transition: Transition.downToUp,
-                        //   arguments: course,
-                        // );
-                        // }
-                      },
-                      child: CardCourse(coursesModel: course),
-                    );
-                  }).toList(),
-                );
-              } else {
-                return StaggeredList(
-                  children: courseApiController.listSaveCourse.map((course) {
-                    return InkWell(
-                      onTap: () {
-                        // if (int.parse(course.price.replaceAll(",", "")) >
-                        //     0) {
-                        //   Get.to(
-                        //     BuyScreen(coursesModel: course),
-                        //     transition: Transition.downToUp,
-                        //     arguments: course,
-                        //   );
-                        // } else {
-                        // Get.to(
-                        //   CourseAboutScreen(coursesModel: course),
-                        //   transition: Transition.downToUp,
-                        //   arguments: course,
-                        // );
-                        // }
-                      },
-                      child: CardCourse(coursesModel: course),
-                    );
-                  }).toList(),
-                );
-              }
-            }),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              _buildPillToggle(),
+              Obx(() {
+                if (myCourseController.isBuy.value == true) {
+                  return StaggeredList(
+                    children: courseApiController.listBuyCourse.map((course) {
+                      return InkWell(
+                        onTap: () async {
+                          CoursesModel coursesModel =
+                              await homeApiController.GetDetails(course.id);
+                          Get.to(
+                            CourseAboutScreen(coursesModel: coursesModel),
+                            transition: Transition.downToUp,
+                            arguments: course,
+                          );
+                        },
+                        child: CardCourse(coursesModel: course),
+                      );
+                    }).toList(),
+                  );
+                } else {
+                  return StaggeredList(
+                    children: courseApiController.listSaveCourse.map((course) {
+                      return InkWell(
+                        onTap: () async {
+                          CoursesModel coursesModel =
+                              await homeApiController.GetDetails(course.id);
+                          Get.to(
+                            CourseAboutScreen(coursesModel: coursesModel),
+                            transition: Transition.downToUp,
+                            arguments: course,
+                          );
+                        },
+                        child: CardCourse(coursesModel: course),
+                      );
+                    }).toList(),
+                  );
+                }
+              }),
+            ],
+          ),
         ),
       ),
     );

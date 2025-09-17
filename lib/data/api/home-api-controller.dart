@@ -6,6 +6,7 @@ import 'package:podcast/data/api/home-api.dart';
 import 'package:podcast/data/models/course-section-model.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/data/models/news-model.dart';
+import 'package:podcast/feature/enter/enter-screen.dart';
 import 'package:podcast/main.dart';
 
 class HomeApiController extends GetxController {
@@ -60,11 +61,24 @@ class HomeApiController extends GetxController {
       final response = await _homeApi.GetCourseAndNews(
         box.read("userData")["phone"],
       );
-
-      if (response.statusCode == 200) {
+      if (response.statusCode == 404) {
+        Get.snackbar("", "کاربر یافت نشد لطفا دوباره وارد شوید");
+        box.remove("userData");
+        Get.to(EnterScreen());
+        return false;
+      } else if (response.statusCode == 200) {
         final newsJson = response.body['news'] as List;
         final courseJson = response.body['course'] as List;
-
+        final userType = response.body["user_type"];
+        if (userType.toString() == "admin") {
+          Map<String, dynamic> myMap = box.read('userData');
+          myMap["user_type"] = "admin";
+          box.write("userData", myMap);
+        } else {
+          Map<String, dynamic> myMap = box.read('userData');
+          myMap["user_type"] = "user";
+          box.write("userData", myMap);
+        }
         listNews.clear();
         listCourse.clear();
 

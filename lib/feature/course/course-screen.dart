@@ -18,7 +18,7 @@ class CourseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // HomeApiController homeApiController = Get.find();
+    HomeApiController homeApiController = Get.put(HomeApiController());
     CourseApiController courseApiController = Get.put(CourseApiController());
     return Scaffold(
       appBar: AppBar(
@@ -45,9 +45,9 @@ class CourseScreen extends StatelessWidget {
               bottom: 120.w,
             ),
             child: Obx(() {
-              if (courseApiController.listCourse.isEmpty) {
+              if (homeApiController.listCourse.isEmpty) {
                 return Column(
-                  children: List.generate(4, (index) {
+                  children: List.generate(5, (index) {
                     return Shimmer.fromColors(
                       baseColor: Colors.grey.shade300,
                       highlightColor: Colors.grey.shade100,
@@ -64,28 +64,20 @@ class CourseScreen extends StatelessWidget {
                 );
               } else {
                 return StaggeredList(
-                  children:
-                      courseApiController.listCourse.map((course) {
-                        return InkWell(
-                          onTap: () {
-                            // if (int.parse(course.price.replaceAll(",", "")) >
-                            //     0) {
-                            //   Get.to(
-                            //     BuyScreen(coursesModel: course),
-                            //     transition: Transition.downToUp,
-                            //     arguments: course,
-                            //   );
-                            // } else {
-                            Get.to(
-                              CourseAboutScreen(coursesModel: course),
-                              transition: Transition.downToUp,
-                              arguments: course,
-                            );
-                            // }
-                          },
-                          child: CardCourse(coursesModel: course),
+                  children: courseApiController.listCourse.map((course) {
+                    return InkWell(
+                      onTap: () async {
+                        CoursesModel coursesModel =
+                            await homeApiController.GetDetails(course.id);
+                        Get.to(
+                          CourseAboutScreen(coursesModel: coursesModel),
+                          transition: Transition.downToUp,
+                          arguments: coursesModel,
                         );
-                      }).toList(),
+                      },
+                      child: CardCourse(coursesModel: course),
+                    );
+                  }).toList(),
                 );
               }
             }),

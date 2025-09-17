@@ -18,15 +18,13 @@ class CourseAboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> allUsers = ['علی', 'مینا', 'ادمین', 'سارا', 'رضا'];
-
-    late List<Comment> comments;
     final CommentsController ctrl = Get.put(CommentsController());
     final HomeApiController homeApiController = Get.find();
     final CourseApiController courseApiController = Get.put(
       CourseApiController(),
     );
     courseApiController.saveStatus(coursesModel.save == "true" ? true : false);
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -62,7 +60,6 @@ class CourseAboutScreen extends StatelessWidget {
           ),
 
           Container(color: Colors.black.withOpacity(0.3)),
-
           Positioned(
             top: 42.w,
             left: 0,
@@ -171,7 +168,6 @@ class CourseAboutScreen extends StatelessWidget {
                         fontSize: 14.sp,
                         height: 1.5,
                         fontFamily: Fonts.Vazir.fontFamily,
-                        color: Colors.grey.shade800,
                       ),
                     ),
                     devider(),
@@ -275,10 +271,14 @@ class CourseAboutScreen extends StatelessWidget {
 
                           Positioned(
                             left: 18,
+
                             bottom: 14,
+
                             child: SizedBox(
                               width: 80.w,
+
                               height: 30.w,
+
                               child: ElevatedButton(
                                 onPressed: () {
                                   ctrl.addComment(
@@ -320,46 +320,62 @@ class CourseAboutScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Obx(
-                      () => SizedBox(
-                        width: double.infinity,
-                        child: ListView.separated(
-                          padding: const EdgeInsets.all(12),
-                          itemCount: ctrl.comments.length,
-                          separatorBuilder: (_, __) =>
-                              const SizedBox(height: 12),
-                          itemBuilder: (context, idx) {
-                            return CommentCard(comment: ctrl.comments[idx]);
-                          },
-                        ),
-                      ),
-                    ),
-                    // ChatCommentThread(
-                    //   userName: "محمد",
-                    //   userTime: "۲ روز پیش",
-                    //   userMessage: "هفتاد درصد ما چیشد؟",
-                    //   adminMessage: "هفتاد درصد؟فکرررر نکنم",
-                    //   adminName: "ادمین",
-                    //   adminTime: "۷۰ روز پیش",
+                    Obx(() {
+                      if (ctrl.comments.isEmpty) {
+                        return SizedBox.shrink();
+                      }
+                      return ListView.builder(
+                        padding: const EdgeInsets.all(12),
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: ctrl.comments.length,
+                        itemBuilder: (context, idx) {
+                          return CommentCard(comment: ctrl.comments[idx]);
+                        },
+                      );
+                    }),
+                    // Positioned(
+                    //   top: 400,
+                    //   child: Obx(
+                    //     () => SizedBox(
+                    //       width: double.infinity,
+                    //       child:
+                    //     ),
+                    //   ),
                     // ),
-                    // SizedBox(height: 40),
-                    // ChatCommentThread(
-                    //   userName: "محمد",
-                    //   userTime: "۲ روز پیش",
-                    //   userMessage: "هفتاد درصد ما چیشد؟",
-                    //   adminMessage: "هفتاد درصد؟فکرررر نکنم",
-                    //   adminName: "ادمین",
-                    //   adminTime: "۷۰ روز پیش",
+                    // ListView.builder(
+                    //   padding: const EdgeInsets.all(12),
+                    //   itemCount: ctrl.comments.length,
+                    //   itemBuilder: (context, idx) {
+                    //     return CommentCard(comment: ctrl.comments[idx]);
+                    //   },
                     // ),
-                    // SizedBox(height: 40),
-                    // ChatCommentThread(
-                    //   userName: "محمد",
-                    //   userTime: "۲ روز پیش",
-                    //   userMessage: "هفتاد درصد ما چیشد؟",
-                    //   adminMessage: "هفتاد درصد؟فکرررر نکنم",
-                    //   adminName: "ادمین",
-                    //   adminTime: "۷۰ روز پیش",
-                    // ),
+                    // // ChatCommentThread(
+                    // //   userName: "محمد",
+                    // //   userTime: "۲ روز پیش",
+                    // //   userMessage: "هفتاد درصد ما چیشد؟",
+                    // //   adminMessage: "هفتاد درصد؟فکرررر نکنم",
+                    // //   adminName: "ادمین",
+                    // //   adminTime: "۷۰ روز پیش",
+                    // // ),
+                    // // SizedBox(height: 40),
+                    // // ChatCommentThread(
+                    // //   userName: "محمد",
+                    // //   userTime: "۲ روز پیش",
+                    // //   userMessage: "هفتاد درصد ما چیشد؟",
+                    // //   adminMessage: "هفتاد درصد؟فکرررر نکنم",
+                    // //   adminName: "ادمین",
+                    // //   adminTime: "۷۰ روز پیش",
+                    // // ),
+                    // // SizedBox(height: 40),
+                    // // ChatCommentThread(
+                    // //   userName: "محمد",
+                    // //   userTime: "۲ روز پیش",
+                    // //   userMessage: "هفتاد درصد ما چیشد؟",
+                    // //   adminMessage: "هفتاد درصد؟فکرررر نکنم",
+                    // //   adminName: "ادمین",
+                    // //   adminTime: "۷۰ روز پیش",
+                    // // ),
                   ],
                 ),
               );

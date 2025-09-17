@@ -50,9 +50,7 @@ class Routes extends StatelessWidget {
                     ),
 
                     NavigationButton(
-                      image: box.read("userData")["user_type"] == "admin"
-                          ? "assets/admin.png"
-                          : "assets/Vector-2.png",
+                      image: "assets/Vector-2.png",
                       isActive: routesController.currentIndex.value == 1,
                       onTap: () => routesController.changePage(1),
                     ),

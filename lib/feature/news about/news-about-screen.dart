@@ -121,7 +121,6 @@ class NewsAboutScreen extends StatelessWidget {
                         fontSize: 14.sp,
                         height: 1.5,
                         fontFamily: Fonts.Vazir.fontFamily,
-                        color: Colors.grey.shade800,
                       ),
                     ),
                     devider(),

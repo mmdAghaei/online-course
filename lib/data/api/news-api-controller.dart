@@ -18,14 +18,10 @@ class NewsApiController extends GetxController {
 
       if (response.statusCode == 200) {
         final newsJson = response.body['news'] as List;
-
+        print(newsJson);
         newsList.clear();
 
-        newsList.addAll(
-          newsJson
-              .map((e) => NewsModel.fromJson(Map<String, dynamic>.from(e)))
-              .toList(),
-        );
+        newsList.addAll(newsJson.map((e) => NewsModel.fromJson(e)).toList());
 
         return true;
       } else {

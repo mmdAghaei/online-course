@@ -10,6 +10,7 @@ import 'package:get/route_manager.dart';
 import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
+import 'package:podcast/data/api/panel-admin-controller.dart';
 import 'package:podcast/feature/my%20course/my-course-controller.dart';
 import 'package:podcast/feature/panel%20admin/course/add/add-edit-course-controller.dart';
 import 'package:podcast/feature/panel%20admin/course/section/section-list.dart';
@@ -22,6 +23,7 @@ class AddEditCourseScreen extends StatelessWidget {
     final EditCourseController editCourseController = Get.put(
       EditCourseController(),
     );
+    final PanelAdminController panelAdminController = Get.find();
     final ImageController imageController = Get.put(ImageController());
     Widget _buildPillToggle() {
       return Obx(() {
@@ -103,7 +105,13 @@ class AddEditCourseScreen extends StatelessWidget {
             icon: Icon(Icons.delete, color: Colors.red),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              if (Get.arguments["title"] == "اضافه کردن دوره") {
+                panelAdminController.createCourse(
+                  editCourseController.isLogin.value,
+                );
+              }
+            },
             icon: Icon(Icons.save_alt_outlined, color: Colors.green),
           ),
         ],
@@ -115,18 +123,23 @@ class AddEditCourseScreen extends StatelessWidget {
             children: [
               Obx(
                 () => InkWell(
-                  onTap: () => imageController.pickImage(),
+                  onTap: () => panelAdminController.pickImage(),
                   child: Container(
                     width: 305.w,
                     height: 305.w,
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       image: DecorationImage(
-                        image: Get.arguments["data"].image != null
-                            ? NetworkImage(Get.arguments["data"].image ?? "")
-                            : AssetImage(
-                                "assets/photo_2025-08-22_19-11-50.jpg",
-                              ),
+                        image: FileImage(
+                          File(
+                            panelAdminController.selectedImagePath.value ?? "",
+                          ),
+                        ),
+                        // Get.arguments["data"].image != null
+                        //     ? NetworkImage(Get.arguments["data"].image ?? "")
+                        //     : AssetImage(
+                        //         "assets/photo_2025-08-22_19-11-50.jpg",
+                        //       ),
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(15),
@@ -147,9 +160,7 @@ class AddEditCourseScreen extends StatelessWidget {
               SizedBox(
                 width: 305.w,
                 child: TextFieldWidget(
-                  textEditingController: TextEditingController(
-                    text: Get.arguments["data"].title ?? "",
-                  ),
+                  textEditingController: panelAdminController.title,
                   hintText: "عنوان",
                   icon: Icon(Icons.person, size: 24),
                   keyboardType: TextInputType.name,
@@ -169,9 +180,7 @@ class AddEditCourseScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     TextField(
-                      controller: TextEditingController(
-                        text: Get.arguments["data"].description ?? "",
-                      ),
+                      controller: panelAdminController.description,
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       minLines: 1,
@@ -192,8 +201,8 @@ class AddEditCourseScreen extends StatelessWidget {
               SizedBox(
                 width: 305.w,
                 child: TextFieldWidget(
-                  textEditingController: TextEditingController(),
-                  hintText: "قیمت (ریال)",
+                  textEditingController: panelAdminController.price,
+                  hintText: "قیمت (تومان)",
                   icon: Icon(Icons.price_change, size: 24),
                   keyboardType: TextInputType.name,
                   obscureText: false,
@@ -205,7 +214,7 @@ class AddEditCourseScreen extends StatelessWidget {
               SizedBox(
                 width: 305.w,
                 child: TextFieldWidget(
-                  textEditingController: TextEditingController(),
+                  textEditingController: panelAdminController.discount,
                   hintText: "تخفیف",
                   icon: Icon(Icons.discount, size: 24),
                   keyboardType: TextInputType.number,

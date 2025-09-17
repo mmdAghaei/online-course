@@ -35,8 +35,10 @@ class CoursesModel {
       buyStatusText = "خریداری نشده";
     } else if (json['buy_status'] == "buy") {
       buyStatusText = "خریداری شده";
-    } else {
+    } else if (json["buy_status"] == "free") {
       buyStatusText = "رایگان";
+    } else {
+      buyStatusText = json["buy_status"].toString();
     }
 
     return CoursesModel(

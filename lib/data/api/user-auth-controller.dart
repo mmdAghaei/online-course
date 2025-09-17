@@ -28,7 +28,7 @@ class UserAuthController extends GetxController {
         Get.snackbar("موفق", "وارد شدید");
         box.write("userData", response.body);
         print(box.read("userData"));
-        Get.to(Routes());
+        Get.offAll(Routes());
         return true;
       } else {
         Get.snackbar(
@@ -87,7 +87,7 @@ class UserAuthController extends GetxController {
       if (response.statusCode == 201) {
         Get.snackbar("موفق", response.body["message"]);
         // response.body["message"]
-        Get.to(Routes());
+        Get.offAll(Routes());
         print(response.body);
         box.write("userData", response.body);
         return true;

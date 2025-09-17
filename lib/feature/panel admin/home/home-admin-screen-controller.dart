@@ -17,38 +17,3 @@ class FabController extends GetxController {
     super.onClose();
   }
 }
-
-class HomeController extends GetxController {
-  RxList<UserModel> userList = [
-    UserModel(
-      firstName: "امین",
-      lastName: "محمدی",
-      phone: "09123456789",
-      rule: "مدیر سیستم",
-    ),
-    UserModel(
-      firstName: "سارا",
-      lastName: "رحیمی",
-      phone: "09129876543",
-      rule: "کاربر عادی",
-    ),
-    UserModel(
-      firstName: "رضا",
-      lastName: "اکبری",
-      phone: "09351234567",
-      rule: "نویسنده",
-    ),
-    UserModel(
-      firstName: "فاطمه",
-      lastName: "زارعی",
-      phone: "09131112233",
-      rule: "مشتری",
-    ),
-    UserModel(
-      firstName: "محمد",
-      lastName: "کریمی",
-      phone: "09124445566",
-      rule: "اپراتور",
-    ),
-  ].obs;
-}

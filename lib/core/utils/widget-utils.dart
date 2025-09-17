@@ -10,6 +10,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/theme/app-theme.dart';
+import 'package:podcast/data/api/panel-admin-controller.dart';
 import 'package:podcast/data/models/course-section-model.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/data/models/user-model.dart';
@@ -332,14 +333,19 @@ class CardCourse extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          coursesModel.title,
-                          style: TextStyle(
-                            color: Theme.of(
-                              context,
-                            ).extension<CustomColors>()!.title,
-                            fontSize: 14.sp,
-                            fontFamily: Fonts.VazirBold.fontFamily,
+                        SizedBox(
+                          width: 100.w,
+                          child: Text(
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            coursesModel.title,
+                            style: TextStyle(
+                              color: Theme.of(
+                                context,
+                              ).extension<CustomColors>()!.title,
+                              fontSize: 14.sp,
+                              fontFamily: Fonts.VazirBold.fontFamily,
+                            ),
                           ),
                         ),
                         SizedBox(height: 5),
@@ -364,26 +370,28 @@ class CardCourse extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Container(
-                          height: 17.w,
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          alignment: Alignment.center,
-                          clipBehavior: Clip.hardEdge,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Text(
-                            coursesModel.buyStatus,
-                            style: TextStyle(
-                              color: Theme.of(
-                                context,
-                              ).extension<CustomColors>()!.stateText,
-                              fontSize: 8.sp,
-                              fontFamily: Fonts.VazirMedium.fontFamily,
-                            ),
-                          ),
-                        ),
+                        coursesModel.buyStatus != ""
+                            ? Container(
+                                height: 17.w,
+                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                alignment: Alignment.center,
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Text(
+                                  coursesModel.buyStatus,
+                                  style: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).extension<CustomColors>()!.stateText,
+                                    fontSize: 8.sp,
+                                    fontFamily: Fonts.VazirMedium.fontFamily,
+                                  ),
+                                ),
+                              )
+                            : SizedBox(),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -829,6 +837,7 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    PanelAdminController panelAdminController = Get.find();
     return Container(
       width: double.infinity,
       height: 60.w,
@@ -878,12 +887,43 @@ class UserCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Text(userModel.userType == "admin" ? "ادمین" : "کاربر عادی"),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.defaultDialog(
+                      title: "سوال",
+                      middleText: "آیا مطمئن هستید تایپ کاربر عوض شود",
+                      textConfirm: "بله",
+                      textCancel: "خیر",
+                      onConfirm: () {
+                        panelAdminController.ChangeUsers(userModel.phone);
+
+                        Get.back();
+                      },
+                      onCancel: () {
+                        Get.back();
+                      },
+                    );
+                  },
                   icon: Icon(Icons.change_circle_outlined, size: 20.w),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.defaultDialog(
+                      title: "سوال",
+                      middleText: "آیا مطمئن هستید؟",
+                      textConfirm: "بله",
+                      textCancel: "خیر",
+                      onConfirm: () {
+                        panelAdminController.RemoveUsers(userModel.phone);
+
+                        Get.back();
+                      },
+                      onCancel: () {
+                        Get.back();
+                      },
+                    );
+                  },
                   icon: Icon(
                     Icons.delete,
                     size: 23.w,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/instance_manager.dart';
 import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
 import 'package:podcast/data/api/profile_api.dart';
+import 'package:podcast/feature/enter/enter-screen.dart';
 import 'package:podcast/main.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -81,6 +83,49 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             Container(
+              width: 104.w,
+              height: 31.w,
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                color: Color(0xFFC6C6C6),
+                borderRadius: BorderRadius.circular(500),
+              ),
+              child: ElevatedButton(
+                onPressed: () {
+                  Get.defaultDialog(
+                    title: "سوال",
+                    middleText: "آیا مطمئن هستید میخواهید خارج شوید",
+                    textConfirm: "بله",
+                    textCancel: "خیر",
+                    onConfirm: () {
+                      box.write("userData", null);
+                      Get.offAll(EnterScreen());
+                      // Get.back();
+                    },
+                    onCancel: () {
+                      Get.back();
+                    },
+                  );
+                },
+                child: Text(
+                  "خروج",
+                  style: TextStyle(
+                    fontFamily: Fonts.Vazir.fontFamily,
+                    fontSize: 15.sp,
+                    color: Colors.white,
+                  ),
+                ),
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(Colors.red),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(500),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Container(
               width: 275.w,
               height: 44.w,
               child: TextFieldWidget(
@@ -120,6 +165,21 @@ class ProfileScreen extends StatelessWidget {
                 // ),
                 textEditingController: profileApiController.role,
                 hintText: "نقش",
+                icon: const Icon(Icons.person, size: 24),
+                keyboardType: TextInputType.name,
+                obscureText: false,
+                textInputFormatters: [],
+              ),
+            ),
+            Container(
+              width: 275.w,
+              height: 44.w,
+              child: TextFieldWidget(
+                // textEditingController: TextEditingController(
+                //   text: box.read("userData")["last_name"],
+                // ),
+                textEditingController: profileApiController.phone,
+                hintText: "شماره",
                 icon: const Icon(Icons.person, size: 24),
                 keyboardType: TextInputType.name,
                 obscureText: false,

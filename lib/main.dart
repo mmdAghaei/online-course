@@ -6,13 +6,14 @@ import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/data/api/courses-api.dart';
 import 'package:podcast/data/api/home-api.dart';
 import 'package:podcast/data/api/news-api.dart';
+import 'package:podcast/data/api/panel-admin-api.dart';
 import 'package:podcast/data/api/profile_api.dart';
 import 'package:podcast/data/api/user-auth.dart';
 import 'package:podcast/feature/enter/enter-screen.dart';
 import 'package:podcast/routes/routes.dart';
 
 final box = GetStorage();
-String ip = "http://192.168.1.21:8000";
+String ip = "http://192.168.1.28:8000";
 
 void main() async {
   await GetStorage.init();
@@ -20,6 +21,8 @@ void main() async {
   // print(box.read("userData")["user_type"]);
   Get.put(UserAuthApi());
   Get.put(CoursesApi());
+  Get.put(PanelAdminApi());
+
   Get.put(HomeApi());
   Get.put(ProfileApi());
   Get.put(NewsApi());

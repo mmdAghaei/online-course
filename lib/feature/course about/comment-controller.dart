@@ -37,7 +37,7 @@ class CommentsController extends GetxController {
   void addReply(String commentId, Reply reply) {
     final c = comments.firstWhere((c) => c.id == commentId);
     c.replies.add(reply);
-    c.expanded.value = true; // بعد از ارسال باز شود
+    c.expanded.value = true;
   }
 
   void addComment(Comment comment) => comments.insert(0, comment);

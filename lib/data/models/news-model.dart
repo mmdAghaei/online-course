@@ -16,10 +16,10 @@ class NewsModel {
   factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
       id: json['id'].toString(),
-      title: json['title'] ?? "",
-      content: json['content'] ?? "",
-      image: json['image'] ?? "",
-      created_at: json['created_at'] ?? "",
+      title: json['title'].toString(),
+      content: json['content'].toString(),
+      image: json['image'].toString(),
+      created_at: json['created_at'].toString(),
     );
   }
 }
