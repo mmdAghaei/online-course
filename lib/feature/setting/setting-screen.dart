@@ -62,21 +62,21 @@ class SettingScreen extends StatelessWidget {
                 },
               ),
 
-              box.read("userData")["user_type"] == "admin"
-                  ? SettingCard(
-                      icon: Icon(
-                        Icons.admin_panel_settings,
-                        color: Color(0xff757C91),
-                      ),
-                      title: "پنل ادمین",
-                      function: () {
-                        Get.to(
-                          HomeAdminScreen(),
-                          transition: Transition.downToUp,
-                        );
-                      },
-                    )
-                  : SizedBox(),
+              // box.read("userData")["user_type"] == "admin"
+              //     ? SettingCard(
+              //         icon: Icon(
+              //           Icons.admin_panel_settings,
+              //           color: Color(0xff757C91),
+              //         ),
+              //         title: "پنل ادمین",
+              //         function: () {
+              //           Get.to(
+              //             HomeAdminScreen(),
+              //             transition: Transition.downToUp,
+              //           );
+              //         },
+              //       )
+              //     : SizedBox(),
               // SettingCard(
               //   icon: Icon(Icons.question_answer, color: Color(0xff757C91)),
               //   title: "سوالات متداول",

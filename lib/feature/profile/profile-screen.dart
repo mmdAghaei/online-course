@@ -46,7 +46,6 @@ class ProfileScreen extends StatelessWidget {
                   box.read("userData")["last_name"],
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.black,
                 fontSize: 16.sp,
                 fontFamily: Fonts.VazirBold.fontFamily,
               ),

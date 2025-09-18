@@ -6,10 +6,7 @@ class NewsApi extends GetConnect {
     return post(
       "$ip/all_announcements",
       {},
-      headers: {
-        "token":
-            "eyJhbGciOiJub25lIn0.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTczNjI5MjEyNH0.",
-      },
+      headers: {"Authorization": "Bearer " + box.read("userData")["token"]},
     );
   }
 }

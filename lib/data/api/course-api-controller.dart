@@ -25,9 +25,7 @@ class CourseApiController extends GetxController {
 
   Future<bool> GetMyCourse() async {
     try {
-      final response = await _coursesApi.MyCourse(
-        box.read("userData")["phone"],
-      );
+      final response = await _coursesApi.MyCourse();
 
       if (response.statusCode == 200) {
         final courseSaveJson = response.body['save'] as List;
@@ -64,10 +62,7 @@ class CourseApiController extends GetxController {
 
   Future<bool> SaveCourses(String id) async {
     try {
-      final response = await _coursesApi.SaveCourse(
-        box.read("userData")["phone"],
-        id,
-      );
+      final response = await _coursesApi.SaveCourse(id);
 
       if (response.statusCode == 200) {
         Get.snackbar("پیام", response.body["message"]);

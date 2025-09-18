@@ -19,20 +19,19 @@ class CoursesApi extends GetConnect {
     );
   }
 
-  Future<Response> SaveCourse(String phone, String course_id) async {
+  Future<Response> SaveCourse(String course_id) async {
     return post(
       "$ip/save_course",
-      {"phone": phone, "course_id": course_id},
+      { "course_id": course_id},
       contentType: "application/x-www-form-urlencoded",
       headers: {"Authorization": "Bearer " + box.read("userData")["token"]},
     );
   }
 
-  Future<Response> MyCourse(String phone) async {
+  Future<Response> MyCourse() async {
     return post(
       "$ip/my_course",
-      {"phone": phone},
-      contentType: "application/x-www-form-urlencoded",
+      {},
       headers: {"Authorization": "Bearer " + box.read("userData")["token"]},
     );
   }

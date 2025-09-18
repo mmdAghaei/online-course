@@ -93,11 +93,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
     return TextField(
       controller: widget.textEditingController,
       keyboardType: widget.keyboardType,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 14.sp,
-        fontFamily: Fonts.Vazir.fontFamily,
-      ),
+      style: TextStyle(fontSize: 14.sp, fontFamily: Fonts.Vazir.fontFamily),
       textAlign: TextAlign.right,
       textAlignVertical: TextAlignVertical.center,
       autocorrect: false,
