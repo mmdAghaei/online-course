@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:podcast/core/constants/fonts.dart';
+import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
 import 'package:podcast/data/api/user-auth-controller.dart';
 import 'package:podcast/data/api/user-auth.dart';
@@ -94,10 +95,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                 child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color:
-                        isLogin
-                            ? Theme.of(context).primaryColor
-                            : Colors.transparent,
+                    color: isLogin
+                        ? Theme.of(context).primaryColor
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Text(
@@ -117,10 +117,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                 child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color:
-                        !isLogin
-                            ? Theme.of(context).primaryColor
-                            : Colors.transparent,
+                    color: !isLogin
+                        ? Theme.of(context).primaryColor
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Text(
@@ -215,8 +214,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                         height: 519.w,
                         alignment: Alignment.center,
                         clipBehavior: Clip.hardEdge,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
+                        decoration: BoxDecoration(
+                          color: Theme.of(
+                            context,
+                          ).extension<CustomColors>()!.card,
                           borderRadius: BorderRadius.vertical(
                             top: Radius.circular(29),
                           ),
@@ -303,10 +304,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                                                             0xFF0F172A,
                                                           ),
                                                           fontSize: 13.sp,
-                                                          fontFamily:
-                                                              Fonts
-                                                                  .VazirBold
-                                                                  .fontFamily,
+                                                          fontFamily: Fonts
+                                                              .VazirBold
+                                                              .fontFamily,
                                                         ),
                                                       ),
                                                     ),
@@ -319,10 +319,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                                                               0xFFB9B9B9,
                                                             ),
                                                             fontSize: 12.sp,
-                                                            fontFamily:
-                                                                Fonts
-                                                                    .VazirBold
-                                                                    .fontFamily,
+                                                            fontFamily: Fonts
+                                                                .VazirBold
+                                                                .fontFamily,
                                                           ),
                                                         ),
                                                         SizedBox(width: 8.w),
@@ -458,8 +457,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                                         authController.isLogin.value;
                                     return ButtonApp(
                                       title: isLogin ? "ورود" : "ثبت‌نام",
-                                      backgroundColor:
-                                          Theme.of(context).primaryColor,
+                                      backgroundColor: Theme.of(
+                                        context,
+                                      ).primaryColor,
                                       foregroundColor: Colors.white,
                                       onTap: () async {
                                         if (isLogin) {
