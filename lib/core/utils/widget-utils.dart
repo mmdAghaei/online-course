@@ -544,7 +544,7 @@ class devider extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 20),
       width: 327.w,
       height: 1,
-      color: Color(0xffF0F4FD),
+      color: Theme.of(context).extension<CustomColors>()!.desc,
     );
   }
 }

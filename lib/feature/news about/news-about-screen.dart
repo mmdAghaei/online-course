@@ -120,6 +120,9 @@ class NewsAboutScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 14.sp,
                         height: 1.5,
+                        color: Theme.of(
+                          context,
+                        ).extension<CustomColors>()!.colorText,
                         fontFamily: Fonts.Vazir.fontFamily,
                       ),
                     ),

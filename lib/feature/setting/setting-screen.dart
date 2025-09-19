@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:podcast/core/constants/fonts.dart';
+import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
 import 'package:podcast/feature/about%20us/about-us-screen.dart';
@@ -18,8 +19,6 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(box.read("userData")["user_type"]);
-    print("------------------------");
     SettingController settingController = Get.put(SettingController());
     return Scaffold(
       appBar: AppBar(
@@ -62,21 +61,21 @@ class SettingScreen extends StatelessWidget {
                 },
               ),
 
-              // box.read("userData")["user_type"] == "admin"
-              //     ? SettingCard(
-              //         icon: Icon(
-              //           Icons.admin_panel_settings,
-              //           color: Color(0xff757C91),
-              //         ),
-              //         title: "پنل ادمین",
-              //         function: () {
-              //           Get.to(
-              //             HomeAdminScreen(),
-              //             transition: Transition.downToUp,
-              //           );
-              //         },
-              //       )
-              //     : SizedBox(),
+              box.read("userData")["user_type"] == "admin"
+                  ? SettingCard(
+                      icon: Icon(
+                        Icons.admin_panel_settings,
+                        color: Color(0xff757C91),
+                      ),
+                      title: "پنل ادمین",
+                      function: () {
+                        Get.to(
+                          HomeAdminScreen(),
+                          transition: Transition.downToUp,
+                        );
+                      },
+                    )
+                  : SizedBox(),
               // SettingCard(
               //   icon: Icon(Icons.question_answer, color: Color(0xff757C91)),
               //   title: "سوالات متداول",
@@ -98,6 +97,7 @@ class SettingScreen extends StatelessWidget {
                       ? "تاریک"
                       : "روشن",
                   function: () {
+                    
                     Get.changeThemeMode(
                       Get.isDarkMode ? ThemeMode.light : ThemeMode.dark,
                     );

@@ -16,6 +16,8 @@ class HomeApiController extends GetxController {
 
   RxList<NewsModel> listNews = <NewsModel>[].obs;
   RxList<CoursesModel> listCourse = <CoursesModel>[].obs;
+  RxList<CoursesModel> listTest = <CoursesModel>[].obs;
+
   RxList<CourseSectionModel> listCourseSesson = <CourseSectionModel>[].obs;
   @override
   void onInit() {

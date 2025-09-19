@@ -1,4 +1,4 @@
-package com.example.podcast
+package com.example.onlinecourse
 
 import io.flutter.embedding.android.FlutterActivity
 

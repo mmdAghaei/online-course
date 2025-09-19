@@ -1,6 +1,6 @@
 {
-    "name": "podcast",
-    "short_name": "podcast",
+    "name": "onlinecourse",
+    "short_name": "onlinecourse",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

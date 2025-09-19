@@ -47,7 +47,7 @@ class CourseScreen extends StatelessWidget {
             child: Obx(() {
               if (homeApiController.listCourse.isEmpty) {
                 return Column(
-                  children: List.generate(5, (index) {
+                  children: List.generate(10, (index) {
                     return Shimmer.fromColors(
                       baseColor: Colors.grey.shade300,
                       highlightColor: Colors.grey.shade100,

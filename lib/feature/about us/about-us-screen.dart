@@ -67,7 +67,7 @@ class AboutUsScreen extends StatelessWidget {
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 14.sp,
+                                fontSize: 13.sp,
                                 fontFamily: Fonts.VazirMedium.fontFamily,
                               ),
                             ),
