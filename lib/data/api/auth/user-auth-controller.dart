@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:podcast/data/api/user-auth.dart';
+import 'package:podcast/data/api/auth/user-auth.dart';
 import 'package:podcast/feature/varification/varification-screen.dart';
 import 'package:podcast/main.dart';
 import 'package:podcast/routes/routes.dart';

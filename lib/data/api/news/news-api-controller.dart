@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:podcast/data/api/news-api.dart';
+import 'package:podcast/data/api/news/news-api.dart';
 import 'package:podcast/data/models/news-model.dart';
 
 class NewsApiController extends GetxController {

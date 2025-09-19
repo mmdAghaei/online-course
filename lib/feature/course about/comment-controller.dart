@@ -6,12 +6,6 @@ import 'comment-widget.dart'; // مسیر فایل Comment و Reply
 class CommentsController extends GetxController {
   final RxList<Comment> comments = <Comment>[].obs;
 
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   void toggleExpand(Comment c) => c.expanded.value = !c.expanded.value;
 
   void addReply(String commentId, Reply reply) {

@@ -10,7 +10,7 @@ import 'package:get/route_manager.dart';
 import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
-import 'package:podcast/data/api/panel-admin-controller.dart';
+import 'package:podcast/data/api/panel/panel-admin-controller.dart';
 import 'package:podcast/feature/my%20course/my-course-controller.dart';
 import 'package:podcast/feature/panel%20admin/course/add/add-edit-course-controller.dart';
 import 'package:podcast/feature/panel%20admin/course/section/section-list.dart';

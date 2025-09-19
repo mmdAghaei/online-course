@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:podcast/data/api/comment-api-controller.dart';
+import 'package:podcast/data/api/comment/comment-api-controller.dart';
 import 'package:podcast/feature/course%20about/comment-controller.dart';
 import 'package:podcast/main.dart';
 
@@ -366,7 +366,6 @@ class CommentCard extends StatelessWidget {
   }
 }
 
-// MessageBubble ساده‌شده
 class MessageBubble extends StatelessWidget {
   final String name;
   final String time;

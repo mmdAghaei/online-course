@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:podcast/data/api/courses-api.dart';
-import 'package:podcast/data/api/home-api.dart';
+import 'package:podcast/data/api/course/courses-api.dart';
+import 'package:podcast/data/api/home/home-api.dart';
 import 'package:podcast/data/models/course-section-model.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/data/models/news-model.dart';
@@ -16,50 +16,14 @@ class HomeApiController extends GetxController {
 
   RxList<NewsModel> listNews = <NewsModel>[].obs;
   RxList<CoursesModel> listCourse = <CoursesModel>[].obs;
-  RxList<CoursesModel> listTest = <CoursesModel>[].obs;
 
-  RxList<CourseSectionModel> listCourseSesson = <CourseSectionModel>[].obs;
   @override
   void onInit() {
     super.onInit();
     GetData();
   }
 
-  Future<CoursesModel> CourseDetails(String code) async {
-    try {
-      final response = await _courseApi.CourseDetails(code);
-
-      if (response.statusCode == 200) {
-        final courseJson = response.body as Map<String, dynamic>;
-        final courseSecconJson =
-            (response.body["sections"] as List?) ?? <dynamic>[];
-        final commentJson = (response.body["comments"] as List?) ?? <dynamic>[];
-
-        CoursesModel c = CoursesModel.fromJson(courseJson);
-        listCourseSesson.clear();
-        listCourseSesson.addAll(
-          courseSecconJson.map((e) => CourseSectionModel.fromJson(e)).toList(),
-        );
-
-        final CommentsController commentsCtrl = Get.put(CommentsController());
-
-        commentsCtrl.setCommentsFromJson(commentJson);
-
-        return c;
-      } else {
-        Get.snackbar(
-          "خطا",
-          "اتصال اینترنت را چک کنید",
-          snackPosition: SnackPosition.BOTTOM,
-        );
-        return CoursesModel.fromJson({});
-      }
-    } catch (e) {
-      Get.snackbar("Exception", "$e");
-      print(e);
-      return CoursesModel.fromJson({});
-    }
-  }
+  
 
   Future<bool> GetData() async {
     try {

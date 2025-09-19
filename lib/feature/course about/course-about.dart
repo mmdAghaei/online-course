@@ -5,13 +5,14 @@ import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
-import 'package:podcast/data/api/comment-api-controller.dart';
-import 'package:podcast/data/api/course-api-controller.dart';
-import 'package:podcast/data/api/home-api-controller.dart';
+import 'package:podcast/data/api/comment/comment-api-controller.dart';
+import 'package:podcast/data/api/course/course-api-controller.dart';
+import 'package:podcast/data/api/home/home-api-controller.dart';
 import 'package:podcast/data/models/course-section-model.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/feature/course%20about/comment-controller.dart';
 import 'package:podcast/feature/course%20about/comment-widget.dart';
+import 'package:podcast/feature/list%20section/section-list-screen.dart';
 import 'package:podcast/main.dart';
 
 class CourseAboutScreen extends StatelessWidget {
@@ -195,7 +196,13 @@ class CourseAboutScreen extends StatelessWidget {
                             ),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Get.to(
+                                SectionListScreen(),
+                                transition: Transition.downToUp,
+                                arguments: coursesModel.id
+                              );
+                            },
                             borderRadius: BorderRadius.circular(500),
                             child: Text(
                               'دیدن همه',
@@ -210,7 +217,7 @@ class CourseAboutScreen extends StatelessWidget {
                       ),
                     ),
                     StaggeredList(
-                      children: homeApiController.listCourseSesson
+                      children: courseApiController.listCourseSesson
                           .toList()
                           .asMap()
                           .entries
@@ -340,8 +347,10 @@ class CourseAboutScreen extends StatelessWidget {
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: ctrl.comments.length,
                         itemBuilder: (context, idx) {
+                          final comment = ctrl.comments.reversed.toList()[idx];
+
                           return CommentCard(
-                            comment: ctrl.comments[idx],
+                            comment: comment,
                             Courseid: coursesModel.id,
                           );
                         },

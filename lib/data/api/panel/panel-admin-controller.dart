@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response, FormData, MultipartFile;
 import 'package:image_picker/image_picker.dart';
-import 'package:podcast/data/api/panel-admin-api.dart';
+import 'package:podcast/data/api/panel/panel-admin-api.dart';
 import 'package:podcast/data/models/user-model.dart';
 import 'package:podcast/main.dart';
 

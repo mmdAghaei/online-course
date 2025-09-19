@@ -5,8 +5,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
-import 'package:podcast/data/api/course-api-controller.dart';
-import 'package:podcast/data/api/home-api-controller.dart';
+import 'package:podcast/data/api/course/course-api-controller.dart';
+import 'package:podcast/data/api/home/home-api-controller.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/feature/auth/register-controller.dart';
 import 'package:podcast/feature/course%20about/course-about.dart';
@@ -106,7 +106,7 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                       return InkWell(
                         onTap: () async {
                           CoursesModel coursesModel =
-                              await homeApiController.CourseDetails(course.id);
+                              await courseApiController.CourseDetails(course.id);
                           Get.to(
                             CourseAboutScreen(coursesModel: coursesModel),
                             transition: Transition.downToUp,
@@ -123,7 +123,7 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                       return InkWell(
                         onTap: () async {
                           CoursesModel coursesModel =
-                              await homeApiController.CourseDetails(course.id);
+                              await courseApiController.CourseDetails(course.id);
                           Get.to(
                             CourseAboutScreen(coursesModel: coursesModel),
                             transition: Transition.downToUp,

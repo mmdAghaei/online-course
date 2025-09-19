@@ -7,7 +7,7 @@ import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
-import 'package:podcast/data/api/news-api-controller.dart';
+import 'package:podcast/data/api/news/news-api-controller.dart';
 import 'package:podcast/feature/news%20about/news-about-screen.dart';
 import 'package:shimmer/shimmer.dart';
 

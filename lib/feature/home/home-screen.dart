@@ -7,7 +7,8 @@ import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/theme/app-theme.dart';
 import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
-import 'package:podcast/data/api/home-api-controller.dart';
+import 'package:podcast/data/api/course/course-api-controller.dart';
+import 'package:podcast/data/api/home/home-api-controller.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/feature/course%20about/course-about.dart';
 import 'package:podcast/feature/course/course-screen.dart';
@@ -22,7 +23,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeApiController homeApiController = Get.put(HomeApiController());
-
+    CourseApiController courseApiController = Get.put(CourseApiController());
     final List<String> images = [
       'assets/190519_orig 2.png',
       'assets/190519_orig 2.png',
@@ -225,7 +226,7 @@ class HomeScreen extends StatelessWidget {
                         return InkWell(
                           onTap: () async {
                             CoursesModel coursesModel =
-                                await homeApiController.CourseDetails(
+                                await courseApiController.CourseDetails(
                                   course.id,
                                 );
                             Get.to(

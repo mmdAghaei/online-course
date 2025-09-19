@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
-import 'package:podcast/data/api/courses-api.dart';
+import 'package:podcast/data/api/course/courses-api.dart';
+import 'package:podcast/data/models/course-section-model.dart';
 import 'package:podcast/data/models/courses-model.dart';
+import 'package:podcast/feature/course%20about/comment-controller.dart';
 import 'package:podcast/main.dart';
 
 class CourseApiController extends GetxController {
@@ -10,6 +12,7 @@ class CourseApiController extends GetxController {
   RxList<CoursesModel> listBuyCourse = <CoursesModel>[].obs;
 
   RxList<CoursesModel> listCourse = <CoursesModel>[].obs;
+  RxList<CourseSectionModel> listCourseSesson = <CourseSectionModel>[].obs;
 
   @override
   void onInit() {
@@ -21,6 +24,42 @@ class CourseApiController extends GetxController {
 
   void saveStatus(bool state) {
     statusSave.value = state;
+  }
+
+  Future<CoursesModel> CourseDetails(String code) async {
+    try {
+      final response = await _coursesApi.CourseDetails(code);
+
+      if (response.statusCode == 200) {
+        final courseJson = response.body as Map<String, dynamic>;
+        final courseSecconJson =
+            (response.body["sections"] as List?) ?? <dynamic>[];
+        final commentJson = (response.body["comments"] as List?) ?? <dynamic>[];
+
+        CoursesModel c = CoursesModel.fromJson(courseJson);
+        listCourseSesson.clear();
+        listCourseSesson.addAll(
+          courseSecconJson.map((e) => CourseSectionModel.fromJson(e)).toList(),
+        );
+
+        final CommentsController commentsCtrl = Get.put(CommentsController());
+
+        commentsCtrl.setCommentsFromJson(commentJson);
+
+        return c;
+      } else {
+        Get.snackbar(
+          "خطا",
+          "اتصال اینترنت را چک کنید",
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        return CoursesModel.fromJson({});
+      }
+    } catch (e) {
+      Get.snackbar("Exception", "$e");
+      print(e);
+      return CoursesModel.fromJson({});
+    }
   }
 
   Future<bool> GetMyCourse() async {

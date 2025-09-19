@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
-import 'package:podcast/data/api/user-auth-controller.dart';
+import 'package:podcast/data/api/auth/user-auth-controller.dart';
 import 'package:podcast/feature/varification/varification_controller.dart';
 
 class VarificationScreen extends StatelessWidget {

@@ -7,7 +7,7 @@ import 'package:get/utils.dart';
 import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
-import 'package:podcast/data/api/panel-admin-controller.dart';
+import 'package:podcast/data/api/panel/panel-admin-controller.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/data/models/user-model.dart';
 import 'package:podcast/feature/panel%20admin/course/add/add-edit-course.dart';

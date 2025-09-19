@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:podcast/data/api/comment-api.dart';
+import 'package:podcast/data/api/comment/comment-api.dart';
 
 class CommentApiController extends GetxController {
   final CommentApi _commentApi = Get.find<CommentApi>();

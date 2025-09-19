@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:podcast/data/api/user-auth.dart';
+import 'package:podcast/data/api/auth/user-auth.dart';
 
 class VarificationController extends GetxController {
   final int length = 5;
