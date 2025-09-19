@@ -9,6 +9,7 @@ import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
 import 'package:podcast/data/api/course/course-api-controller.dart';
 import 'package:podcast/data/api/home/home-api-controller.dart';
+import 'package:podcast/data/api/panel/panel-admin-controller.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/feature/course%20about/course-about.dart';
 import 'package:podcast/feature/panel%20admin/course/add/add-edit-course.dart';
@@ -20,8 +21,8 @@ class ListCourseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CourseApiController courseApiController = Get.put(CourseApiController());
-    HomeApiController homeApiController = Get.find();
-
+    PanelAdminController panelAdminController = Get.find();
+    panelAdminController.GetData();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -46,7 +47,7 @@ class ListCourseScreen extends StatelessWidget {
               bottom: 120.w,
             ),
             child: Obx(() {
-              if (courseApiController.listCourse.isEmpty) {
+              if (panelAdminController.listCourse.isEmpty) {
                 return Column(
                   children: List.generate(4, (index) {
                     return Shimmer.fromColors(
@@ -65,7 +66,7 @@ class ListCourseScreen extends StatelessWidget {
                 );
               } else {
                 return StaggeredList(
-                  children: courseApiController.listCourse.map((course) {
+                  children: panelAdminController.listCourse.map((course) {
                     return InkWell(
                       onTap: () async {
                         // CoursesModel coursesModel =

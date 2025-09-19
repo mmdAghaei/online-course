@@ -3,7 +3,6 @@ import 'package:podcast/data/api/course/courses-api.dart';
 import 'package:podcast/data/models/course-section-model.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/feature/course%20about/comment-controller.dart';
-import 'package:podcast/main.dart';
 
 class CourseApiController extends GetxController {
   final CoursesApi _coursesApi = Get.find<CoursesApi>();

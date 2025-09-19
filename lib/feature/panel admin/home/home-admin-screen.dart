@@ -13,6 +13,7 @@ import 'package:podcast/data/models/user-model.dart';
 import 'package:podcast/feature/panel%20admin/course/add/add-edit-course.dart';
 import 'package:podcast/feature/panel%20admin/course/list-course.dart';
 import 'package:podcast/feature/panel%20admin/home/home-admin-screen-controller.dart';
+import 'package:podcast/feature/panel%20admin/news/list-news.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeAdminScreen extends StatelessWidget {
@@ -59,7 +60,9 @@ class HomeAdminScreen extends StatelessWidget {
             child: Icon(Icons.add),
           ),
           FloatingActionButton.small(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(ListNewsScreen());
+            },
             tooltip: "اضافه کردن اطلاعیه و اخبار",
             child: Icon(Icons.newspaper),
           ),

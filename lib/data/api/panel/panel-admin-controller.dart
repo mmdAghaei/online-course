@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response, FormData, MultipartFile;
 import 'package:image_picker/image_picker.dart';
 import 'package:podcast/data/api/panel/panel-admin-api.dart';
+import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/data/models/user-model.dart';
 import 'package:podcast/main.dart';
 
@@ -15,6 +16,38 @@ class PanelAdminController extends GetxController {
     super.onInit();
 
     GetUser();
+  }
+
+  RxList<CoursesModel> listCourse = <CoursesModel>[].obs;
+
+  Future<bool> GetData() async {
+    try {
+      final response = await _panelAdminApi.AllCourseAdmin();
+      print(response.body);
+      print("------------------");
+      if (response.statusCode == 200) {
+        final courseJson = response.body['all_course'] as List;
+        listCourse.clear();
+
+        listCourse.addAll(
+          courseJson.map((e) => CoursesModel.fromJson(e)).toList(),
+        );
+
+        return true;
+      } else {
+        Get.snackbar(
+          "خطا",
+          "اتصال اینترنت را چک کنید",
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        print(response.body);
+        return false;
+      }
+    } catch (e) {
+      Get.snackbar("Exception", "$e");
+      print(e);
+      return false;
+    }
   }
 
   Future<bool> GetUser() async {
