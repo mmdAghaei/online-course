@@ -50,14 +50,6 @@ class VarificationController extends GetxController {
     });
   }
 
-  void send(String username) async {
-    var res = await userAuthApi.verifyEmail(
-      code:
-          "${textControllers[0].text}${textControllers[1].text}${textControllers[2].text}${textControllers[3].text}${textControllers[4].text}",
-      username: username,
-    );
-    Get.snackbar("title", res.body["message"]);
-  }
 
   void resendCode() {
     debugPrint('Resend code to user phone (call your API here)');

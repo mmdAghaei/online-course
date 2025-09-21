@@ -15,9 +15,10 @@ import 'package:podcast/feature/enter/enter-screen.dart';
 import 'package:podcast/routes/routes.dart';
 
 final box = GetStorage();
-String ip = "http://5.10.248.48:9876";
-
+// String ip = "http://5.10.248.48:9876";
+String ip = "http://192.168.1.28:8000";
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   // box.remove("userData");
   // print(box.read("userData")["user_type"]);

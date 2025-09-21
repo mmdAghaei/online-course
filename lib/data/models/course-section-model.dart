@@ -20,14 +20,12 @@ class CourseSectionModel {
     return CourseSectionModel(
       id: json["id"].toString(),
       title: json["title"].toString(),
-      state: json["price"].toString(),
-      price: json["section_buy_status"].toString(),
+      state: json["section_buy_status"].toString(),
+      price: json["price"].toString(),
       partCount: json["part_count"].toString(),
-      parts:  json['parts'] != null
-          ? (json['parts'] as List)
-                .map((e) => PartModel.fromJson(e))
-                .toList()
-          : null
+      parts: json['parts'] != null
+          ? (json['parts'] as List).map((e) => PartModel.fromJson(e)).toList()
+          : null,
     );
   }
 }

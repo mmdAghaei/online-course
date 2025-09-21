@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:podcast/data/api/auth/device-info-controller.dart';
 import 'package:podcast/data/api/auth/user-auth.dart';
 import 'package:podcast/feature/varification/varification-screen.dart';
 import 'package:podcast/main.dart';
@@ -15,12 +16,16 @@ class UserAuthController extends GetxController {
   final emailController = TextEditingController();
 
   final UserAuthApi _authApi = Get.find<UserAuthApi>();
-
+  final DeviceInfoController deviceInfoController = Get.find();
   Future<bool> login() async {
     try {
       final response = await _authApi.login(
         phone: phoneController.text,
         password: passwordController.text,
+        app_version: deviceInfoController.appVersion.toString(),
+        device_name: deviceInfoController.deviceModel.toString(),
+        ip_address: deviceInfoController.ip.toString(),
+        os: deviceInfoController.os.toString(),
       );
       print(response.statusCode);
       print(response.body);
@@ -82,6 +87,10 @@ class UserAuthController extends GetxController {
       final response = await _authApi.verifyEmail(
         code: code,
         username: phoneController.text,
+        app_version: deviceInfoController.appVersion.toString(),
+        device_name: deviceInfoController.deviceModel.toString(),
+        ip_address: deviceInfoController.ip.toString(),
+        os: deviceInfoController.os.toString(),
       );
 
       if (response.statusCode == 201) {

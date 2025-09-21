@@ -9,6 +9,7 @@ import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
 import 'package:podcast/feature/about%20us/about-us-screen.dart';
 import 'package:podcast/feature/contact%20us/contact-us.dart';
+import 'package:podcast/feature/devices%20info/devices-list.dart';
 import 'package:podcast/feature/my%20course/my-course-screen.dart';
 import 'package:podcast/feature/panel%20admin/home/home-admin-screen.dart';
 import 'package:podcast/feature/setting/setting-controller.dart';
@@ -44,6 +45,13 @@ class SettingScreen extends StatelessWidget {
                 title: "درباره ما",
                 function: () {
                   Get.to(AboutUsScreen(), transition: Transition.downToUp);
+                },
+              ),
+              SettingCard(
+                icon: Icon(Icons.devices, color: Color(0xff757C91)),
+                title: "نشست های فعال",
+                function: () {
+                  Get.to(DevicesListScreen(), transition: Transition.downToUp);
                 },
               ),
               SettingCard(
@@ -97,7 +105,6 @@ class SettingScreen extends StatelessWidget {
                       ? "تاریک"
                       : "روشن",
                   function: () {
-                    
                     Get.changeThemeMode(
                       Get.isDarkMode ? ThemeMode.light : ThemeMode.dark,
                     );

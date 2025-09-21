@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
+import 'package:podcast/data/api/auth/device-info-controller.dart';
 import 'package:podcast/feature/auth/register-screen.dart';
 
 class EnterScreen extends StatelessWidget {
@@ -13,6 +14,7 @@ class EnterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceInfoController deviceInfoController = Get.put(DeviceInfoController());
     return Scaffold(
       appBar: AppBar(
         title: Text(

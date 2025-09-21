@@ -4,7 +4,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:podcast/core/constants/fonts.dart';
 import 'package:podcast/core/theme/app-theme.dart';
+import 'package:podcast/core/utils/animation.dart';
 import 'package:podcast/core/utils/widget-utils.dart';
+import 'package:podcast/data/models/part-model.dart';
+import 'package:podcast/feature/media/media-screen.dart';
 
 class SectionDetailsScreen extends StatelessWidget {
   const SectionDetailsScreen({super.key});
@@ -12,109 +15,39 @@ class SectionDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(Get.arguments.parts);
+    print("-------------------00");
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          Get.arguments.title,
+          style: TextStyle(
+            fontSize: 20.sp,
+            color: Theme.of(context).extension<CustomColors>()!.colorText,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: Stack(
         alignment: Alignment.center,
         children: [
-          Positioned(
-            top: 0,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 349.w,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(""),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.r),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black.withOpacity(0),
-                      Colors.black.withOpacity(.9),
-                    ],
-                  ),
-                ),
-              ),
+          Container(
+            padding: EdgeInsets.only(
+              left: 16.w,
+              bottom: 16.w,
+              right: 16.w,
+              top: 10.w,
             ),
-          ),
-
-          Container(color: Colors.black.withOpacity(0.3)),
-
-          Positioned(
-            top: 42.w,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.black.withOpacity(0.5),
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back, color: Colors.white),
-                      onPressed: () => Get.back(),
-                    ),
-                  ),
-                ],
-              ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
             ),
-          ),
-          DraggableScrollableSheet(
-            initialChildSize: 0.7,
-            minChildSize: 0.7,
-            maxChildSize: 0.9,
-            builder: (_, controller) {
-              return Container(
-                padding: EdgeInsets.only(
-                  left: 16.w,
-                  bottom: 16.w,
-                  right: 16.w,
-                  top: 40.w,
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(24.r),
-                  ),
-                ),
-                child: ListView(
-                  controller: controller,
+            child: ListView(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      Get.arguments.title,
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        color: Theme.of(
-                          context,
-                        ).extension<CustomColors>()!.colorText,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 8.w),
-
-                    Row(
-                      children: [
-                        Text(
-                          Get.arguments.partCount,
-                          style: TextStyle(
-                            color: Colors.grey.shade600,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    devider(),
-                    Text(
-                      Get.arguments.partCount,
+                      "مبلغ دوره: ${Get.arguments.price.toString()}",
                       style: TextStyle(
                         fontSize: 14.sp,
                         height: 1.5,
@@ -124,11 +57,68 @@ class SectionDetailsScreen extends StatelessWidget {
                         fontFamily: Fonts.Vazir.fontFamily,
                       ),
                     ),
-                    devider(),
+                    SizedBox(width: 10),
+                    Text(
+                      "تعداد پارت ها: ${Get.arguments.partCount}",
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        height: 1.5,
+                        color: Theme.of(
+                          context,
+                        ).extension<CustomColors>()!.colorText,
+                        fontFamily: Fonts.Vazir.fontFamily,
+                      ),
+                    ),
                   ],
                 ),
-              );
-            },
+                devider(),
+                StaggeredList(
+                  children: Get.arguments.parts.map<Widget>((PartModel entry) {
+                    return InkWell(
+                      onTap: () {
+                        Get.to(
+                          MediaPage(
+                            url: entry.mediaFile,
+                            keyBase64:
+                                "hTs6TXJpB5zwz207Zplcd+3ugXDL98sT7qGKFuc+5kI=",
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: 327.w,
+                        height: 90.w,
+                        margin: const EdgeInsets.symmetric(vertical: 4),
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 228, 236, 255),
+                          borderRadius: BorderRadius.circular(16.w),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 67.w,
+                              height: 67.w,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12.w),
+                              ),
+                              child: Icon(Icons.video_collection_rounded),
+                            ),
+                            Text(
+                              entry.title,
+                              style: TextStyle(
+                                fontFamily: Fonts.VazirBlack.fontFamily,
+                                fontSize: 17.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
           ),
         ],
       ),
