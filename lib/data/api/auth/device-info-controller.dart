@@ -12,9 +12,10 @@ class DeviceInfoController extends GetxController {
   var os = 'در حال دریافت...'.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    loadAll();
+    await loadAll();
+    print(ip);
   }
 
   Future<void> loadAll() async {

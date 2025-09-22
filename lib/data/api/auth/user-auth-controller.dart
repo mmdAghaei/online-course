@@ -44,7 +44,6 @@ class UserAuthController extends GetxController {
         return false;
       }
     } catch (e) {
-      Get.snackbar("Exception", "$e");
       return false;
     }
   }
@@ -77,7 +76,6 @@ class UserAuthController extends GetxController {
         return false;
       }
     } catch (e) {
-      Get.snackbar("Exception", "$e");
       return false;
     }
   }
@@ -118,7 +116,6 @@ class UserAuthController extends GetxController {
         return false;
       }
     } catch (e) {
-      Get.snackbar("Exception", "$e");
       return false;
     }
   }

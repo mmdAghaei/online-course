@@ -15,6 +15,7 @@ import 'package:podcast/data/models/course-section-model.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/data/models/user-model.dart';
 import 'package:podcast/feature/setting/setting-controller.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 // import 'package:url_launcher/url_launcher.dart';
 
 class ButtonApp extends StatelessWidget {
@@ -935,4 +936,39 @@ class UserCard extends StatelessWidget {
       ),
     );
   }
+}
+
+String toJalaliDate(String iso) {
+  DateTime date = DateTime.parse(iso);
+
+  final jalali = Jalali.fromDateTime(date);
+
+  final weekDays = [
+    'شنبه',
+    'یک‌شنبه',
+    'دوشنبه',
+    'سه‌شنبه',
+    'چهارشنبه',
+    'پنج‌شنبه',
+    'جمعه',
+  ];
+
+  final months = [
+    'فروردین',
+    'اردیبهشت',
+    'خرداد',
+    'تیر',
+    'مرداد',
+    'شهریور',
+    'مهر',
+    'آبان',
+    'آذر',
+    'دی',
+    'بهمن',
+    'اسفند',
+  ];
+
+  String formatted =
+      "${weekDays[jalali.weekDay % 7]},${jalali.day} ${months[jalali.month - 1]} ${jalali.year}";
+  return formatted;
 }

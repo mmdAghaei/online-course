@@ -3,6 +3,8 @@ import 'package:podcast/data/api/course/courses-api.dart';
 import 'package:podcast/data/models/course-section-model.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/feature/course%20about/comment-controller.dart';
+import 'package:podcast/feature/enter/enter-screen.dart';
+import 'package:podcast/main.dart';
 
 class CourseApiController extends GetxController {
   final CoursesApi _coursesApi = Get.find<CoursesApi>();
@@ -46,6 +48,11 @@ class CourseApiController extends GetxController {
         commentsCtrl.setCommentsFromJson(commentJson);
 
         return c;
+      } else if (response.statusCode == 403) {
+        Get.snackbar("خطا", "دوباره وارد شوید!");
+        box.remove("userData");
+        Get.to(EnterScreen());
+        return CoursesModel.fromJson({});
       } else {
         Get.snackbar(
           "خطا",
@@ -55,7 +62,6 @@ class CourseApiController extends GetxController {
         return CoursesModel.fromJson({});
       }
     } catch (e) {
-      Get.snackbar("Exception", "$e");
       print(e);
       return CoursesModel.fromJson({});
     }
@@ -92,7 +98,7 @@ class CourseApiController extends GetxController {
         return false;
       }
     } catch (e) {
-      // Get.snackbar("Exception", "$e");
+      //
       print(e);
       return false;
     }
@@ -115,7 +121,7 @@ class CourseApiController extends GetxController {
         return false;
       }
     } catch (e) {
-      // Get.snackbar("Exception", "$e");
+      //
       print(e);
       return false;
     }
@@ -144,7 +150,6 @@ class CourseApiController extends GetxController {
         return false;
       }
     } catch (e) {
-      Get.snackbar("Exception", "$e");
       print(e);
       return false;
     }

@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:podcast/data/api/panel/panel-admin-api.dart';
 import 'package:podcast/data/models/courses-model.dart';
 import 'package:podcast/data/models/user-model.dart';
+import 'package:podcast/feature/enter/enter-screen.dart';
 import 'package:podcast/main.dart';
 
 class PanelAdminController extends GetxController {
@@ -44,7 +45,6 @@ class PanelAdminController extends GetxController {
         return false;
       }
     } catch (e) {
-      Get.snackbar("Exception", "$e");
       print(e);
       return false;
     }
@@ -61,6 +61,11 @@ class PanelAdminController extends GetxController {
         userList.clear();
         userList.addAll(usersJson.map((e) => UserModel.fromJson(e)));
         return true;
+      } else if (response.statusCode == 403) {
+        Get.snackbar("خطا", "دوباره وارد شوید!");
+        box.remove("userData");
+        Get.to(EnterScreen());
+        return false;
       } else {
         Get.snackbar(
           "خطا",
@@ -70,7 +75,6 @@ class PanelAdminController extends GetxController {
         return false;
       }
     } catch (e) {
-      Get.snackbar("Exception", "$e");
       print(e);
       return false;
     }
@@ -84,6 +88,11 @@ class PanelAdminController extends GetxController {
         GetUser();
         Get.snackbar("موفق", "کاربر با موفقیت حذف شد");
         return true;
+      } else if (response.statusCode == 403) {
+        Get.snackbar("خطا", "دوباره وارد شوید!");
+        box.remove("userData");
+        Get.to(EnterScreen());
+        return false;
       } else {
         Get.snackbar(
           "خطا",
@@ -93,7 +102,6 @@ class PanelAdminController extends GetxController {
         return false;
       }
     } catch (e) {
-      Get.snackbar("Exception", "$e");
       print(e);
       return false;
     }
@@ -107,6 +115,11 @@ class PanelAdminController extends GetxController {
         GetUser();
         Get.snackbar("موفق", "کاربر با موفقیت عوض شد");
         return true;
+      } else if (response.statusCode == 403) {
+        Get.snackbar("خطا", "دوباره وارد شوید!");
+        box.remove("userData");
+        Get.to(EnterScreen());
+        return false;
       } else {
         Get.snackbar(
           "خطا",
@@ -116,7 +129,6 @@ class PanelAdminController extends GetxController {
         return false;
       }
     } catch (e) {
-      Get.snackbar("Exception", "$e");
       print(e);
       return false;
     }

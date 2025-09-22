@@ -23,8 +23,6 @@ class HomeApiController extends GetxController {
     GetData();
   }
 
-  
-
   Future<bool> GetData() async {
     try {
       final response = await _homeApi.GetCourseAndNews();
@@ -32,6 +30,11 @@ class HomeApiController extends GetxController {
       print("----------------");
       if (response.statusCode == 404) {
         Get.snackbar("", "کاربر یافت نشد لطفا دوباره وارد شوید");
+        box.remove("userData");
+        Get.to(EnterScreen());
+        return false;
+      } else if (response.statusCode == 403) {
+        Get.snackbar("خطا", "دوباره وارد شوید!");
         box.remove("userData");
         Get.to(EnterScreen());
         return false;
@@ -69,7 +72,6 @@ class HomeApiController extends GetxController {
         return false;
       }
     } catch (e) {
-      Get.snackbar("Exception", "$e");
       print(e);
       return false;
     }

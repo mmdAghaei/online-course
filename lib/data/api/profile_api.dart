@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/connect.dart';
+import 'package:podcast/feature/enter/enter-screen.dart';
 import 'package:podcast/main.dart';
 
 class ProfileApi extends GetConnect {
@@ -43,6 +44,11 @@ class ProfileApiController extends GetxController {
         boxs["last_name"] = lastName.text;
         print(box.read("userData"));
         return true;
+      } else if (response.statusCode == 403) {
+        Get.snackbar("خطا", "دوباره وارد شوید!");
+        box.remove("userData");
+        Get.to(EnterScreen());
+        return false;
       } else {
         Get.snackbar(
           "خطا",
@@ -52,7 +58,6 @@ class ProfileApiController extends GetxController {
         return false;
       }
     } catch (e) {
-      Get.snackbar("Exception", "$e");
       return false;
     }
   }

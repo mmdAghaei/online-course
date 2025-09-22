@@ -25,13 +25,16 @@ class UserAuthApi extends GetConnect {
     required String app_version,
     required String ip_address,
   }) {
+    print("-----------------------------------------------------------");
+    print(ip_address);
+    print("-----------------------------------------------------------");
     return post("$ip/user_login", {
       "phone": phone,
       "password": password,
       "device_name": device_name,
       "os": os,
       "app_version": app_version,
-      "ip_address": ip_address,
+      "ip": ip_address,
     }, contentType: "application/x-www-form-urlencoded");
   }
 
