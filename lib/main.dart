@@ -9,6 +9,7 @@ import 'package:podcast/data/api/course/courses-api.dart';
 import 'package:podcast/data/api/course/section/section-api.dart';
 import 'package:podcast/data/api/devices/device-list-api.dart';
 import 'package:podcast/data/api/home/home-api.dart';
+import 'package:podcast/data/api/media/media.dart';
 import 'package:podcast/data/api/news/news-api.dart';
 import 'package:podcast/data/api/panel/panel-admin-api.dart';
 import 'package:podcast/data/api/profile_api.dart';
@@ -23,7 +24,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   // box.remove("userData");
-  // print(box.read("userData")["user_type"]);
+  print(box.read("userData"));
   Get.put(DeviceListApi());
   Get.put(SectionApi());
   Get.put(UserAuthApi());

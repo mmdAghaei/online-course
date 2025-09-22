@@ -76,12 +76,14 @@ class SectionDetailsScreen extends StatelessWidget {
                   children: Get.arguments.parts.map<Widget>((PartModel entry) {
                     return InkWell(
                       onTap: () {
+                        print(entry.mediaFile);
                         Get.to(
-                          MediaPage(
-                            url: entry.mediaFile,
-                            keyBase64:
-                                "hTs6TXJpB5zwz207Zplcd+3ugXDL98sT7qGKFuc+5kI=",
-                          ),
+                          // MediaPage(
+                          //   url: entry.mediaFile,
+                          //   keyBase64:
+                          //       "hTs6TXJpB5zwz207Zplcd+3ugXDL98sT7qGKFuc+5kI=",
+                          // ),
+                          PlayerPage(url: entry.mediaFile),
                         );
                       },
                       child: Container(
